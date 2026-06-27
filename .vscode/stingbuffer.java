@@ -33,4 +33,3 @@ public class StringBufferMethodsDemo {
         // 7. charAt()
         System.out.println("charAt(1): " + sb.charAt(1));
     }
-}
