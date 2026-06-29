@@ -1,4 +1,5 @@
-class Dog extends animal {
+class g extends an
+ {
 
     public static void main(String[] args) {
 
