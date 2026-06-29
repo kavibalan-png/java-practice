@@ -1,11 +1,9 @@
 interface Pet {
     void play();
 }
-
 interface Trainable {
     void train();
 }
-
 class Animal12 {
     void eat() {
         System.out.println("Animal is eating");
