@@ -2,7 +2,6 @@
 interface Payment {
     void pay();
 }
-
 // UPI Class
 class UPI implements Payment {
     public void pay() {
