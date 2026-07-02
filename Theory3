@@ -1,0 +1,522 @@
+What is Polymorphism?
+
+Polymorphism is an Object-Oriented Programming (OOP) concept where the same method or object can behave differently in different situations.
+
+The word polymorphism means "many forms."
+
+Example
+class Animal {
+    void sound() {
+        System.out.println("Animal makes a sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Dog barks");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal a = new Dog();
+        a.sound();   // Output: Dog barks
+    }
+}
+output
+types of Polymorphism
+
+There are two types:
+
+1. Compile-Time Polymorphism (Static Polymorphism)
+Achieved using Method Overloading.
+The compiler decides which method to call.
+2. Run-Time Polymorphism (Dynamic Polymorphism)
+Achieved using Method Overriding.
+The JVM decides which method to call at runtime.
+Method Overloading(compiletime)
+
+Method overloading means multiple methods have the same name but different parameters in the same class.
+
+Example
+class Calculator {
+
+    // Method 1
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    // Method 2
+    int add(int a, int b, int c) {
+        return a + b + c;
+    }
+
+    // Method 3
+    double add(double a, double b) {
+        return a + b;
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Calculator cal = new Calculator();
+
+        // Calling first method
+        System.out.println("Addition of 2 integers: " + cal.add(10, 20));
+
+        // Calling second method
+        System.out.println("Addition of 3 integers: " + cal.add(10, 20, 30));
+
+        // Calling third method
+        System.out.println("Addition of 2 doubles: " + cal.add(10.5, 20.5));
+    }
+}
+Rules
+Same method name
+Different number or type of parameters
+Return type alone cannot make overloading happen
+Method Overriding(runtime)
+
+Method overriding means a child class provides its own implementation of a method already defined in the parent class.
+
+Example
+class Animal {
+
+    void sound() {
+        System.out.println("Animal makes a sound");
+    }
+}
+
+class Cat extends Animal {
+
+    @Override
+    void sound() {
+        System.out.println("Cat meows");
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Animal a = new Cat();
+
+        a.sound();
+    }
+}
+output
+cat meows
+
+
+Difference Between Overloading and Overriding
+Method Overloading	Method Overriding
+Same class	Parent and child classes
+Same method name	Same method name
+Different parameters	Same parameters
+Compile-time	Run-time
+Inheritance not required	Inheritance required
+Why Do We Use Polymorphism?
+
+Polymorphism provides several benefits:
+
+Code reusability – Reuse existing code without duplication.
+Flexibility – One interface can work with many different object types.
+Maintainability – Changes are easier because common code can be shared.
+Extensibility – New classes can be added without changing existing code.
+Cleaner code – Reduces complex if-else or switch statements.
+
+
+polymorphiyam
+problem 1
+Area
+
+Create an Area class with overloaded methods:
+
+Calculate area of a square.
+Calculate area of a rectangle.
+Calculate area of a circle.
+
+Hint
+
+Use the same method name:
+
+area(...)
+problem 2
+Notification System
+Question
+
+Create a parent class:
+
+Notification
+
+Method:
+
+send()
+
+Create child classes:
+
+Email
+SMS
+WhatsApp
+problem 3
+
+
+Create:
+
+Payment
+
+Method
+
+pay()
+
+Child classes
+
+UPI
+CreditCard
+Cash
+
+Use
+
+Payment p;
+
+Call pay() for each object.
+
+
+
+Pakages 
+
+What is a Package in Java?
+
+A package is a folder that groups related Java classes and interfaces together.
+
+In simple words:
+
+A package is used to organize Java files into folders.
+Real-Life Example 📁
+
+Imagine your computer has this structure:
+
+Documents
+│
+├── Photos
+├── Videos
+├── Songs
+└── Projects
+
+Why do we create these folders?
+
+To keep files organized.
+To find files easily.
+To avoid confusion.
+
+A Java package works the same
+
+why use this
+Why do we use packages?
+1. Organize the project
+
+All related classes are grouped together.
+
+Example:
+
+student/
+    Student.java
+    Result.java
+    Attendance.java
+
+2. Avoid class name conflicts
+
+Suppose you have:
+
+student/
+    Student.java
+
+employee/
+    Student.java
+
+Both classes are named Student.
+
+Without packages, Java wouldn't know which one you mean.
+
+With packages:
+student.Student
+employee.Student
+
+Java can distinguish them.
+
+3. Easier maintenance
+
+Large companies may have thousands of Java files.
+
+Packages help developers find files quickly.
+
+4. Access control
+
+Packages work together with access modifiers.
+
+For example, default members can only be accessed within the same package.
+
+How to create a package
+
+Suppose your folder is:
+
+Project/
+└── student/
+    └── Student.java
+
+The first line of Student.java should be:
+
+package student;
+How to use a class from another package
+
+Suppose:
+
+Project/
+│
+├── Main.java
+└── student/
+    └── Student.java
+Student.java
+package student;
+
+public class Student {
+
+    public void display() {
+        System.out.println("Hello Student");
+    }
+}
+Main.java
+import student.Student;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Student s = new Student();
+        s.display();
+    }
+}
+What does import do?
+import student.Student;
+
+This tells Java:
+
+"Use the Student class from the student package."
+
+Without the import, Java won't know where to find Student.
+
+Real-world Example
+
+Think of a college.
+
+College
+│
+├── CSE Department
+├── ECE Department
+├── Mechanical Department
+└── Civil Department
+College = Project
+Departments = Packages
+Students = Classes
+
+Each department has its own students, just like each package contains its own classes.
+
+Interview Definition
+
+A package in Java is a namespace used to organize related classes and interfaces into a folder structure. It helps avoid naming conflicts, improves code organization, provides access control, and makes large applications easier to maintain.
+
+
+create Create Student.java
+
+Inside the school folder, create Student.java.
+
+Folder structure:
+
+JavaProject
+    school
+        Student.java
+
+
+package school;
+
+public class Student {
+
+    public void display() {
+        System.out.println("Welcome to Java Package");
+    }
+}
+Important: The package name must match the folder name (school).
+
+Create Main.java
+
+Create Main.java outside the school folder.
+
+JavaProject
+    school
+        Student.java
+
+    Main.java
+
+Write:
+
+import school.Student;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Student s = new Student();
+
+        s.display();
+    }
+}
+Step 5: Run the Program
+
+Output:
+
+Welcome to Java Package
+
+folder structure
+JavaProject
+│
+├── school
+│      │
+│      └── Student.java
+│
+└── Main.java
+
+
+1. private
+
+Accessible only inside the same class.
+
+class Student {
+    private int age = 20;
+
+    public void show() {
+        System.out.println(age); 
+    }
+}
+
+Outside the class:
+
+Student s = new Student();
+// System.out.println(s.age); ❌ Error
+
+Use: Hide data (Encapsulation).
+
+2. Default (No Modifier)
+
+If you don't write any modifier, it is default (also called package-private).
+
+class Student {
+    int age = 20;
+}
+
+Accessible only within the same package.
+
+3. protected
+
+Accessible:
+
+Inside the same class 
+Same package 
+Different package through inheritance 
+class Student {
+    protected void display() {
+        System.out.println("Hello");
+    }
+}
+
+Usually used with inheritance.
+
+4. public
+
+Accessible from anywhere.
+
+public class Student {
+
+    public void display() {
+        System.out.println("Welcome");
+    }
+}
+Student s = new Student();
+s.display(); // ✅ Allowed
+Easy way to remember
+Modifier	Who can use it?
+private	Only this class
+Default	Classes in the same package
+protected	Same package + subclasses in other packages
+public	Everyone
+
+
+example
+class BankAccount {
+
+    private int pin = 1234;      // Only BankAccount class
+
+    String branch = "Chennai";   // Same package
+
+    protected String bank = "SBI"; // Same package + subclasses
+
+    public String name = "Hema"; // Accessible everywhere
+}
+
+
+
+What is Recursion in Java?
+
+Definition:
+
+Recursion is a technique where a method calls itself repeatedly until a stopping condition (base case) is met.
+
+Why do we use Recursion?
+
+We use recursion to solve problems that can be divided into smaller, similar subproblems.
+
+Examples:
+
+Factorial
+Fibonacci Series
+Binary Search
+Tree Traversal
+Directory/File Search
+example
+Imagine you're climbing stairs.
+
+To reach the 5th step, you first reach the 4th step.
+
+To reach the 4th step, you first reach the 3rd step.
+
+To reach the 3rd step, you first reach the 2nd step.
+
+To reach the 2nd step, you first reach the 1st step.
+
+Once you reach the 1st step, you stop.
+
+This is exactly how recursion works.
+some problems
+public class RecursionDemo {
+
+    static void print(int n) {
+
+        if (n == 0) {
+            return;
+        }
+
+        System.out.println(n);
+
+        print(n - 1);
+    }
+
+    public static void main(String[] args) {
+
+        print(5);
+
+    }
+}
+
+A method calling itself is called recursion.

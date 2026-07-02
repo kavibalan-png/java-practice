@@ -1,0 +1,507 @@
+The super keyword in Java is used to refer to the parent class (superclass). It allows a subclass to access members (variables, methods, and constructors) of its parent class.
+
+Why is super used?
+
+The super keyword is mainly used for three purposes:
+
+Access the parent class variable
+Call the parent class method
+Call the parent class constructor
+
+Why is super used?
+
+The super keyword is mainly used for three purposes:
+
+Access the parent class variable
+Call the parent class method
+Call the parent class constructor
+
+Access the Parent Class Variable
+
+If both parent and child classes have variables with the same name, use super to access the parent's variable.
+
+class Animal {
+    String color = "White";
+}
+
+class Dog extends Animal {
+    String color = "Black";
+
+    void display() {
+        System.out.println("Child color: " + color);
+        System.out.println("Parent color: " + super.color);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog d = new Dog();
+        d.display();
+    }
+}
+
+Output:
+
+Child color: Black
+Parent color: White
+
+class Animal {
+    void sound() {
+        System.out.println("Animal makes a sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Dog barks");
+    }
+
+    void show() {
+        sound();         // Child method
+        super.sound();   // Parent method
+    }
+}
+
+public class Main {	
+    public static void main(String[] args) {
+        Dog d = new Dog();
+        d.show();
+    }
+}
+
+output
+Dog barks
+Animal makes a sound
+
+Call the Parent Class Constructor
+
+Use super() to call the parent class constructor.
+
+class Animal {
+    Animal() {
+        System.out.println("Animal constructor");
+    }
+}
+
+class Dog extends Animal {
+    Dog() {
+        super(); // Calls Animal constructor
+        System.out.println("Dog constructor");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog d = new Dog();
+    }
+}
+
+Output:
+
+Animal constructor
+Dog constructor
+Calling a Parameterized Parent Constructor
+class Animal {
+    Animal(String name) {
+        System.out.println("Animal: " + name);
+    }
+}
+
+class Dog extends Animal {
+    Dog() {
+        super("Tommy");
+        System.out.println("Dog constructor");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog d = new Dog();
+    }
+}
+
+Output:
+
+Animal: Tommy
+Dog constructor
+
+Difference Between this and super
+this                            	super
+Refers to the class object	Refers to the parent class
+Accesses current classvariables and methods	Accesses parent class variables and methods
+Calls the current class constructor using this()	Calls the parent class constructor using super()
+
+class A {
+
+    A() {
+        System.out.println("A");
+    }
+}
+
+class B extends A {
+
+    B() {
+        System.out.println("B");
+    }
+}
+what is that output
+Question:
+
+B b = new B();
+
+output
+AB
+
+
+Innerclasses
+An Inner Class is a class declared inside another class.
+Syntax
+Syntax
+class Outer {
+
+    class Inner {
+
+    }
+}
+Why do we use an Inner Class?
+
+We use an inner class when one class is closely related to another class and doesn't make sense to exist independently.
+
+Example
+
+Think of a Car and its Engine.
+
+An Engine belongs to a Car.
+It doesn't usually exist independently in your program.
+Example1
+class Outer {
+
+    int x = 100;
+
+    class Inner {
+
+        void display() {
+            System.out.println(x);
+        }
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Outer outer = new Outer();
+
+        Outer.Inner inner = outer.new Inner();
+
+        inner.display();
+    }
+}
+output
+100
+Example2
+class Mobile {
+
+    String brand = "Samsung";
+
+    class Battery {
+
+        void show() {
+            System.out.println("Battery belongs to " + brand);
+        }
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Mobile mobile = new Mobile();
+
+        Mobile.Battery battery = mobile.new Battery();
+
+        battery.show();
+    }
+
+}
+output
+Battery belongs to Samsung
+
+Types of Inner Classes
+1. Member Inner Class
+class A {
+
+    class B {
+
+    }
+}
+
+Most commonly used.
+
+2. Static Inner Class
+class Car {
+
+    static String company = "BMW";
+
+    static class Engine {
+
+        void start() { //normal method
+            System.out.println("Engine Started");
+            System.out.println("Company : " + company);
+        }
+    }
+}
+public class Main {
+
+    public static void main(String[] args) {
+
+        Car.Engine engine = new Car.Engine();
+
+        engine.start();
+    }
+}
+output
+Engine Started
+Company : BMW
+
+
+
+3. Local Inner Class
+
+Class inside a method.
+
+class A {
+
+    void show() {
+
+        // Local Inner Class (inside method)
+        class B {
+
+            void display() {
+                System.out.println("Hello from Local Inner Class");
+            }
+        }
+
+        // object create inside method
+        B b = new B();
+        b.display();
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        A obj = new A();
+        obj.show();
+    }
+}
+output
+Hello from Local Inner Class
+Example
+A class = Office
+ show() = Meeting
+B class = Temporary helper person once that role is finished that time its deleted
+4. Anonymous Inner Class
+
+A class with no name, used only once.
+
+class Animal {
+
+    void sound() {
+        System.out.println("Animal Sound");
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Animal obj = new Animal() {
+
+            @Override
+            void sound() {
+                System.out.println("Dog Barks");
+            }
+        };
+
+        obj.sound();
+    }
+}
+
+Output:
+
+Dog Barks
+
+Anonymous Class
+
+What is Anonymous Class in Java?
+
+An Anonymous Class is a class that does NOT have a name and is created at the same time while creating an object.
+“Class without name + used only once”
+Why do we use Anonymous Class?
+
+We use it when:
+
+We need a class only one time
+We want to override a method quickly
+We don’t want to create a separate .java class file
+
+example
+public class Main {
+
+    public static void main(String[] args) {
+
+        Animal obj = new Animal() {
+
+            @Override
+            void sound() {
+                System.out.println("Dog Barks");
+            }
+        };
+
+        obj.sound();
+    }
+}
+output
+Dog barks
+
+another example
+class Food {
+
+    void taste() {
+        System.out.println("Normal Taste");
+    }
+}
+public class Main {
+
+    public static void main(String[] args) {
+
+        Food myOrder = new Food() {
+
+            @Override
+            void taste() {
+                System.out.println("Extra Spicy Taste 🌶️");
+            }
+        };
+
+        myOrder.taste();
+    }
+}
+Output
+Extra Spicy Taste 
+Date 
+Java Dates
+Java does not have a built-in Date class, but we can import the java.time package to work with the date and time API. The package includes many date and time classes. For example:
+
+Class	Description
+LocalDate	Represents a date (year, month, day (yyyy-MM-dd))
+LocalTime	Represents a time (hour, minute, second and nanoseconds (HH-mm-ss-ns))
+LocalDateTime	Represents both a date and a time (yyyy-MM-dd-HH-mm-ss-ns)
+DateTimeFormatter	Formatter for displaying and parsing date-time objects
+Display Current Date
+To display the current date, import the java.time.LocalDate class, and use its now() method:
+
+Example
+import java.time.LocalDate; // import the LocalDate class
+
+public class Main {
+  public static void main(String[] args) {
+    LocalDate myObj = LocalDate.now(); // Create a date object
+    System.out.println(myObj); // Display the current date
+  }
+}
+The output will be:
+
+2026-07-01
+Display Current Time
+To display the current time (hour, minute, second, and nanoseconds), import the java.time.LocalTime class, and use its now() method:
+
+Example
+import java.time.LocalTime; // import the LocalTime class
+
+public class Main {
+  public static void main(String[] args) {
+    LocalTime myObj = LocalTime.now();
+    System.out.println(myObj);
+  }
+}
+This example displays the server's local time, which may differ from your local time:
+
+18:29:03.285768
+
+Display Current Date and Time
+To display the current date and time, import the java.time.LocalDateTime class, and use its now() method:
+
+Example
+import java.time.LocalDateTime; // import the LocalDateTime class
+
+public class Main {
+  public static void main(String[] args) {
+    LocalDateTime myObj = LocalDateTime.now();
+    System.out.println(myObj);
+  }
+}
+The output will be something like this:
+
+2026-07-01T18:29:03.286501
+problems
+Question
+
+Create a parent class Person.
+
+Variable:
+name = "Rahul"
+
+Create a child class Student.
+
+Variable:
+name = "Kumar"
+
+Write a method display() that prints:
+
+Student Name : Kumar
+Person Name : Rahul
+problem 2
+Member Inner Class
+Question
+
+Create
+
+School
+
+Variable
+
+schoolName = ABC School
+
+Inside it create
+
+Student
+
+Student method
+
+display()
+
+Output
+School : ABC School
+Student : Arun
+
+Wrapper classes
+A Wrapper Class is a class that wraps (converts) a primitive data type into an object.
+definition:
+Wrapper Class = Primitive datatype ➜ Object
+Primitive Datatypes
+int
+char
+double
+float
+boolean
+byte
+short
+long
+Example:
+int age = 22;
+Objects
+Example:
+Student s = new Student();

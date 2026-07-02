@@ -1,0 +1,427 @@
+Interface in Java
+
+An interface is a blueprint of a class. It contains abstract methods (methods without a body) and constants. A class implements an interface and provides the implementation for its methods.
+
+Why use an Interface?
+To achieve 100% abstraction.
+To support multiple inheritance.
+To define a common contract for different classes.
+To make code more flexible and reusable.
+
+
+Example
+Step 1: First understand the problem
+Imagine you own 3 vehicles.
+Car
+Bike
+Bicycle
+All of them can start.
+Car starts with a key.
+Bike starts with a self-start or kick.
+Bicycle doesn't have an engine, so you just pedal.
+So the action is the same (start()), but the way it happens is different.
+Java says:
+"I don't care how you start. Every vehicle must have a start() method."
+This rule is called an Interface.
+
+interface Animal {
+    void sound();   // Abstract method
+}
+
+class Dog implements Animal {
+    public void sound() {
+        System.out.println("Dog barks");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog d = new Dog();
+        d.sound();
+    }
+}
+
+Output
+Dog barks
+
+
+
+Multiple inheritance  achieve this 
+
+
+interface Father {
+    void show();
+}
+
+interface Coach {
+    void play();
+}
+
+class Student implements Father, Coach {
+
+    public void show() {
+        System.out.println("Father Method");
+    }
+
+    public void play() {
+        System.out.println("Coach Method");
+    }
+}
+
+interface
+Problem 2: Payment System
+
+Create interface Payment:
+
+method pay()
+
+Implement in:
+
+UPI
+Card
+Cash
+
+Multiple Interfaces
+
+Create:
+
+interface Camera → clickPhoto()
+interface MusicPlayer → playMusic()
+
+Implement both in:
+
+SmartPhone
+
+
+
+Hybrid Inheritance
+
+Hybrid inheritance means combining two or more inheritance types, such as:
+
+Single inheritance
+Multilevel inheritance
+Multiple inheritance (through interfaces)
+
+Example:
+interface Pet {
+    void play();
+}
+
+interface Trainable {
+    void train();
+}
+
+class Animal {
+    void eat() {
+        System.out.println("Animal is eating");
+    }
+}
+
+class Dog extends Animal {
+
+    void bark() {
+        System.out.println("Dog is barking");
+    }
+}
+
+class PetDog extends Dog implements Pet, Trainable {
+
+    public void play() {
+        System.out.println("Dog is playing with owner");
+    }
+
+    public void train() {
+        System.out.println("Dog is getting trained");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        PetDog d = new PetDog();
+
+        d.eat();     // from Animal
+        d.bark();    // from Dog
+        d.play();    // from Pet interface
+        d.train();   // from Trainable interface
+    }
+}
+output
+Animal is eating
+Dog is barking
+Dog is playing with owner
+Dog is getting trained
+
+
+problem 1
+Create:Smart Device System
+Class:
+Device → method powerOn()
+Interface:
+Camera → takePhoto()
+Wifi → connect()
+Child class:
+SmartPhone extends Device implements Camera, Wifi
+
+Abstarction
+What is Abstract in Java?
+
+Abstract means something that is incomplete or not fully defined.
+
+In Java, abstraction is used to hide implementation details and show only the important features.
+Why do we use Abstract?
+
+We use abstract when:
+
+We want to define a common rule for all subclasses
+We want to force child classes to implement certain methods
+We want to hide implementation details
+We want code reusability and structure
+Example of Abstract Class
+“Some work done + some rules”
+
+Abstract teacher:
+Gives notes (ready content)
+Also gives assignment (rule)
+Interface teacher:
+
+Only gives instruction:
+
+“Write exam”
+
+No notes, no explanation
+
+abstract class Animal {
+
+    // abstract method (no body)
+    abstract void sound();
+
+    // normal method (with body)
+    void eat() {
+        System.out.println("Animal is eating");
+    }
+}
+
+// child class
+class Dog extends Animal {
+
+    // giving implementation for abstract method
+    void sound() {
+        System.out.println("Dog barks");
+    }
+}
+
+// main class
+public class Main {
+    public static void main(String[] args) {
+
+        Dog d = new Dog();
+        d.sound();   // Dog barks
+        d.eat();     // Animal is eating
+    }
+}
+output
+Dog barks
+Animal is eating
+
+
+Problem 1: Bank System
+
+Create abstract class Bank:
+
+abstract method getInterestRate()
+normal method bankInfo()
+
+Child classes:
+
+SBI
+ICICI
+
+Each bank gives different interest rate.
+
+
+problem 2Employee System
+
+Create abstract class Employee:
+
+abstract method calculateSalary()
+normal method companyName()
+
+Child classes:
+
+Developer
+Manager
+
+
+
+1. What is an abstract class?
+
+A) A fully defined class
+B) A class with only objects
+C) A class that may have abstract methods
+D) A final class
+
+
+2. Can we create object of abstract class?
+
+A) Yes
+B) No
+C) Sometimes
+D) Only in main method
+
+
+
+3. What is an abstract method?
+
+A) Method with body
+B) Method without body
+C) Static method
+D) Final method
+
+
+
+4. Which keyword is used for abstract class?
+
+A) interface
+B) abstract
+C) implements
+D) extends
+
+
+
+5. Which keyword is used to inherit abstract class?
+
+A) implements
+B) extends
+C) inherit
+D) use
+
+
+
+6. Interface methods are by default:
+
+A) private
+B) protected
+C) public abstract
+D) static only
+
+
+
+7. Can interface have method body ()?
+
+A) Yes
+B) No
+C) Only private methods
+D) Only static methods
+
+
+8. Which keyword is used for interface implementation?
+
+A) extends
+B) inherits
+C) implements
+D) uses
+
+
+9. Can a class implement multiple interfaces?
+
+A) No
+B) Yes
+C) Only one
+D) Depends on JVM
+
+
+10. Can abstract class have normal methods?
+
+A) No
+B) Yes
+C) Only static
+D) Only final
+
+
+
+11. Interface supports:
+
+A) Single inheritance only
+B) Multiple inheritance
+C) No inheritance
+D) Final inheritance
+
+
+12. Which is more flexible?
+
+A) Abstract class
+B) Interface
+C) Both same
+D) None
+
+
+
+13. Abstract class can have:
+
+A) Only abstract methods
+B) Only normal methods
+C) Both abstract and normal methods
+D) No methods
+
+
+
+14. Interface variables are:
+
+A) private
+B) public static final
+C) protected
+D) local
+
+
+15. Which is true?
+
+A) Interface can have constructor
+B) Abstract class can have constructor
+C) Both have constructor
+D) None can have constructor
+
+
+16. Which one supports multiple inheritance?
+
+A) Class
+B) Abstract class
+C) Interface
+D) Object
+
+
+17. What happens if abstract method is not implemented?
+
+A) Program runs
+B) Compile error
+C) Runtime error
+D) Warning only
+
+
+18. Interface is used for:
+
+A) Data hiding
+B) Multiple inheritance
+C) Memory allocation
+D) Looping
+
+
+
+19. Which keyword is NOT allowed in interface methods (basic level)?
+
+A) abstract
+B) public
+C) private (old Java versions)
+D) static (modern Java allowed)
+
+
+
+20. Abstract class is used for:
+
+A) Full abstraction
+B) Partial abstraction
+C) No abstraction
+D) Compilation
+
+
+

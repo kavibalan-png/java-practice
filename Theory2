@@ -1,0 +1,683 @@
+Encapsulation is the process of wrapping data (variables) and methods (functions) into a single unit (class) while restricting direct access to the data.
+
+Making variables private
+Providing public getter and setter methods to access and modify those variables
+
+Why is Encapsulation Used?
+
+Encapsulation provides several benefits:
+
+1. Data Security
+
+No one can directly modify important data.
+2. Better Control
+
+You decide:
+
+Who can read the data
+Who can change the data
+What values are acceptable
+3. Easy Maintenance
+
+If the internal implementation changes, other classes do not need to change.
+
+4. Improved Security
+
+Sensitive information like:
+
+Passwords
+Bank balances
+Medical records
+Employee salaries
+
+cannot be directly accessed.
+
+
+What is a Setter?
+
+A setter is a method that sets (updates) the value of a private variable.
+
+public void setName(String name) {
+    this.name = name;
+}
+
+When you call:
+
+s.setName("John");
+
+the value "John" is stored in the private variable name.
+
+What is a Getter?
+
+A getter is a method that returns (reads) the value of a private variable.
+
+public String getName() {
+    return name;
+}
+
+When you call:
+
+System.out.println(s.getName());
+
+it prints:
+
+John
+
+
+same classes its working  for the private
+public class Main {
+
+    private int age = 20;
+
+    public void display() {
+        System.out.println(age);   
+    }
+
+    public static void main(String[] args) {
+
+        Main m = new Main();
+        m.display();
+    }
+}
+
+Same class → private can be accessed.
+ Different class → private cannot be accessed directly.
+
+Different class → Need a getter or setter (or another public method) to access the private data.
+example code
+
+class Student {
+
+    private String name;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Student s = new Student();
+
+        s.setName("Karthik");
+
+        System.out.println(s.getName());
+    }
+}
+output
+
+Karthik
+
+
+another example
+class BankAccount {
+
+    private double balance;
+
+    // deposit (money add)
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance = balance + amount;
+        }
+    }
+
+    // withdraw (money reduce)
+    public void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance = balance - amount;
+        } else {
+            System.out.println("Insufficient balance");
+        }
+    }
+
+    // getter - balance பார்க்க
+    public double getBalance() {
+        return balance;
+    }
+}
+public class Main {
+
+    public static void main(String[] args) {
+
+        BankAccount account = new BankAccount();
+
+        account.deposit(5000);
+
+        account.withdraw(2000);
+
+        System.out.println("Balance: " + account.getBalance());
+    }
+}
+Output
+Balance: 3000.0
+
+problem1
+Create a class Student with private variables name and age. Set and get values using methods
+
+
+
+class Student {
+    private String name;
+    private int age;
+
+    // Setter methods
+    public void setName(String n) {
+        name = n;
+    }
+
+    public void setAge(int a) {
+        age = a;
+    }
+
+    // Getter methods
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        Student s1 = new Student();
+
+        // setting values
+        s1.setName("Arun");
+        s1.setAge(21);
+
+        // getting values
+        System.out.println("Name: " + s1.getName());
+        System.out.println("Age: " + s1.getAge());
+    }
+}
+
+problem 1
+Create a class Employee with private variables name and salary. Display employee details using encapsulation.
+
+
+Constructor
+A constructor in Java is a special block of code used to initialize newly created objects. 
+A constructor is a special method in Object-Oriented Programming (OOP) that is automatically called when an object of a class is created.
+
+It is mainly used to initialize the object (give initial values to variables, set up resources, etc.).
+What is a Constructor?
+
+A constructor is a function inside a class that:
+
+Has the same name as the class (in many languages like Java, C++)
+Runs automatically when an object is created
+Does not return any value (not even void in some languages)
+Why we use Constructors in Java?
+
+We use constructors to:
+
+Initialize variables when object is created
+Avoid writing extra setup code
+Make objects ready to use immediately
+Types of Constructors in Java
+1. Default Constructor
+
+
+No parameters
+
+class Student {
+    String name;
+    int age;
+
+    // Default Constructor
+    Student() {
+        name = "Unknown";
+        age = 0;
+    }
+
+    // Method to display values
+    void display() {
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        // Object creation → constructor automatically called
+        Student s1 = new Student();
+
+        // calling method
+        s1.display();
+    }
+}
+🔷 Output:
+Name: Unknown
+Age: 0
+Automatically created by Java if you don’t write any constructor
+
+
+Parameterized Constructor
+Takes values as input
+class Student {
+    String name;
+
+    Student(String n) {
+        name = n;
+    }
+
+    void display() {
+        System.out.println(name);
+    }
+}
+
+Usage:
+
+Student s1 = new Student("John");
+s1.display();
+
+class Student {
+    String name;
+    int age;
+
+    // Parameterized Constructor
+    Student(String n, int a) {
+        name = n;
+        age = a;
+    }
+
+    void display() {
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        // values pass pannrom constructor ku
+        Student s1 = new Student("John", 20);
+
+        s1.display();
+    }
+}
+output
+Name: John
+Age: 20
+3. Copy Constructor (manually created in Java)
+Java does NOT provide it automatically, but you can create it
+class Student {
+    String name;
+
+    Student(String n) {
+        name = n;
+    }
+
+    Student(Student s) {
+        name = s.name;
+    }
+}
+
+
+class Student {
+    String name;
+    int age;
+
+    // Parameterized Constructor
+    Student(String n, int a) {
+        name = n;
+        age = a;
+    }
+
+    // Copy Constructor
+    Student(Student s) {
+        name = s.name;
+        age = s.age;
+    }
+
+    void display() {
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        // Original object
+        Student s1 = new Student("John", 20);
+
+        // Copy object
+        Student s2 = new Student(s1);
+
+        s1.display();
+        s2.display();
+    }
+}
+output
+Name: John
+Age: 20
+Name: John
+Age: 20
+4. Constructor Overloading
+Multiple constructors in same class with different parameters
+class Student {
+    String name;
+    int age;
+
+    Student() {
+        name = "Unknown";
+        age = 0;
+    }
+
+    Student(String n, int a) {
+        name = n;
+        age = a;
+    }
+}
+
+
+
+
+
+class Student {
+    String name;
+    int age;
+
+    // Constructor 1 (Default)
+    Student() {
+        name = "Unknown";
+        age = 0;
+    }
+
+    // Constructor 2 (Parameterized - 1 parameter)
+    Student(String n) {
+        name = n;
+        age = 18; // default age
+    }
+
+    // Constructor 3 (Parameterized - 2 parameters)
+    Student(String n, int a) {
+        name = n;
+        age = a;
+    }
+
+    void display() {
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("----------------");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        // calls default constructor
+        Student s1 = new Student();
+
+        // calls constructor with 1 parameter
+        Student s2 = new Student("John");
+
+        // calls constructor with 2 parameters
+        Student s3 = new Student("David", 22);
+
+        s1.display();
+        s2.display();
+        s3.display();
+    }
+}
+
+Output:
+Name: Unknown
+Age: 0
+----------------
+Name: John
+Age: 18
+----------------
+Name: David
+Age: 22
+----------------
+how to create a abstact class
+
+for the constructor
+abstract class Animal {
+    String name;
+
+    // constructor in abstract class
+    Animal() {
+        name = "Unknown Animal";
+        System.out.println("Abstract class constructor called");
+    }
+}
+
+class Dog extends Animal {
+    Dog() {
+        System.out.println("Dog constructor called");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog d = new Dog();
+    }
+}
+output
+Abstract class constructor called
+Dog constructor called
+Create a class Student with private variables name and age. Set and get values using methods.
+class Student {
+    private String name;
+    private int age;
+
+    // Setter methods
+    public void setName(String n) {
+        name = n;
+    }
+
+    public void setAge(int a) {
+        age = a;
+    }
+
+    // Getter methods
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        Student s1 = new Student();
+
+        s1.setName("Arun");
+        s1.setAge(21);
+
+        System.out.println("Name: " + s1.getName());
+        System.out.println("Age: " + s1.getAge());
+    }
+}
+output
+
+
+problem 1
+
+Abstract class constructor called
+Dog constructor called
+
+problem 2
+Create Employee class with:
+
+no parameter constructor
+1 parameter constructor (name)
+2 parameter constructor (name, salary)
+
+
+
+Mcq Questions
+
+
+
+1. Encapsulation is used to:
+
+A) Increase speed
+B) Hide data
+C) Delete objects
+D) Compile code
+
+
+
+2. Which keyword is used for data hiding?
+
+A) public
+B) private
+C) static
+D) final
+
+
+
+3. To access private variables we use:
+
+A) loops
+B) constructors
+C) getter and setter methods
+D) main method
+
+
+
+4. Encapsulation means:
+
+A) Hiding data + providing access methods
+B) Only writing methods
+C) Only using constructors
+D) Deleting variables
+
+5. Constructor name is:
+
+A) different from class name
+B) same as class name
+C) same as method name
+D) optional
+
+
+
+6. Constructor has:
+
+A) return type
+B) no return type
+C) int return type
+D) void return type
+
+
+
+7. When constructor is called?
+
+A) manually
+B) during compilation
+C) automatically when object is created
+D) never
+
+
+
+8. Constructor overloading means:
+
+A) multiple classes
+B) multiple constructors with different parameters
+C) multiple objects
+D) no constructors
+
+
+9. this keyword refers to:
+
+A) previous object
+B) next object
+C) current object
+D) class name
+
+
+
+10. this is used when:
+
+A) variables are deleted
+B) local and instance variables have same name
+C) compiling code
+D) creating class
+
+
+
+11. Which is correct use of this?
+
+A) this = 10
+B) this.name = name
+C) this() = name
+D) this-name
+
+
+12. If we don’t use this in same variable name case:
+
+A) correct output
+B) error always
+C) wrong assignment may happen
+D) faster execution
+
+
+
+13. Which concept hides data and protects it?
+
+A) Inheritance
+B) Polymorphism
+C) Encapsulation
+D) Abstraction
+
+
+
+14. Which is NOT part of encapsulation?
+
+A) private variables
+B) getter methods
+C) setter methods
+D) main method
+
+
+class Employee {
+    private String name;
+    private int salary;
+
+    public void setName(String n) {
+        name = n;
+    }
+
+    public void setSalary(int s) {
+        salary = s;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        Employee e1 = new Employee();
+
+        e1.setName("Kumar");
+        e1.setSalary(50000);
+
+        System.out.println("Name: " + e1.getName());
+        System.out.println("Salary: " + e1.getSalary());
+    }
+}
+
