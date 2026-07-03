@@ -1,0 +1,688 @@
+What is an Error?
+
+An Error is a serious problem that occurs in a program. Errors can happen during compile time or runtime.
+
+Definition
+
+An error is a problem that prevents a program from compiling or running correctly.
+
+Types of Errors
+=>Compile-time Error
+Found by the compiler before the program runs.
+Example: Missing semicolon, incorrect syntax.
+public class Main {
+    public static void main(String[] args) {
+
+        System.out.println("Hello")   // Missing ;
+
+    }
+}
+
+Output
+
+';' expected
+=>Runtime Error (Exception)
+Happens while the program is running.
+public class Main {
+    public static void main(String[] args) {
+
+        int a = 10;
+        int b = 0;
+
+        System.out.println(a / b);
+
+    }
+}
+
+Output
+Exception in thread "main"
+java.lang.ArithmeticException: / by zero
+ 
+
+What is Exception?
+Exception is an unexpected event or error that occurs while a program is running (runtime) and interrupts the normal flow of the program
+Why is Exception Handling Used?
+
+Exception handling is used to:
+
+Prevent the program from crashing.
+Handle runtime errors gracefully.
+Display meaningful error messages.
+Allow the program to continue executing after an error.
+Improve the reliability and stability of the program.
+two types exception
+ =>checked 
+=>unchecked
+
+Checked Exception
+Definition
+
+A Checked Exception is an exception that is checked by the compiler at compile time.
+
+The programmer must handle the exception using try-catch or throws. Otherwise, the program will not compile.
+
+Common Examples
+IOException
+FileNotFoundException
+SQLException
+
+example (Without Handling)
+import java.io.FileReader;
+
+public class Main {
+    public static void main(String[] args) {
+
+        FileReader file = new FileReader("data.txt");
+
+    }
+}
+Output
+Compile-time Error
+
+Unhandled exception type FileNotFoundException
+
+Solution Using try-catch
+import java.io.FileReader;
+
+public class Main {
+    public static void main(String[] args) {
+        try {
+            FileReader file = new FileReader("data.txt");
+            System.out.println("File Opened Successfully.");
+        } catch (FileNotFoundException e) {
+            System.out.println("File Not Found.");
+        }
+    }
+}
+Output (If file does not exist)
+File Not Found.
+
+SQLException
+Definition
+
+SQLException occurs when an error happens while working with a database, such as connecting to the database or executing an SQL query.
+
+Example (Without Handling)
+import java.sql.Connection;
+import java.sql.DriverManager;
+public class Main {
+    public static void main(String[] args) {
+
+        Connection con = DriverManager.getConnection(
+            "jdbc:mysql://localhost:3306/test",
+            "root",
+            "1234"
+        );
+
+    }
+}
+Output
+Compile-time Error
+
+Unhandled exception type SQLException
+Reason
+The database may not be running.
+The username or password may be incorrect.
+The connection may fail.
+Therefore, Java forces you to handle this checked exception.
+Solution
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+public class Main {
+    public static void main(String[] args) {
+        try {
+            Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/test",
+                "root",
+                "1234"
+            );
+            System.out.println("Database Connected.");
+        } catch (SQLException e) {
+            System.out.println("Database Connection Failed.");
+
+        }
+
+    }
+}
+Output (If connection fails)
+Database Connection Failed.
+
+unchecked exception
+An unchecked exception is an exception that is not checked by the compiler. It occurs during runtime, and although handling it is optional, it is recommended to prevent the program from crashing.
+types
+ArithmeticException
+NullPointerException
+ArrayIndexOutOfBoundsException
+NumberFormatException
+InputMismatchException
+
+Example Without Exception Handling
+public class Main {
+    public static void main(String[] args) {
+        int a = 10;
+        int b = 0;
+        System.out.println(a / b);
+        System.out.println("Program End");
+    }
+}
+Output
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+The program tries to divide 10 by 0.
+Java throws an ArithmeticException.
+The program stops immediately.
+"Program End" is not printed.
+Example With Exception Handling
+public class Main {
+    public static void main(String[] args) {
+        try {
+            int a = 10;
+            int b = 0;
+            System.out.println(a / b);
+        } catch (ArithmeticException e) {
+            System.out.println("Cannot divide by zero.");
+        }
+        System.out.println("Program End");
+    }
+}
+Output
+Cannot divide by zero.
+Program End
+Null pointer Exception
+2. NullPointerException
+Cause
+
+Occurs when you try to use a null object.
+
+Code
+public class Main {
+    public static void main(String[] args) {
+        String name = null;
+        System.out.println(name.length());
+    }
+}
+Output
+Exception in thread "main"
+solve this for exception
+public class Main {
+    public static void main(String[] args) {
+        try {
+            String name = null;
+            System.out.println(name.length());
+        } catch (NullPointerException e) {
+            System.out.println("String is null. Cannot perform length().");
+        }
+        System.out.println("Program End");
+    }
+}
+output
+String is null. Cannot perform length().
+Program End
+Another Example
+ArrayIndexOutOfBoundsException
+
+Cause
+
+Occurs when an invalid array index is accessed.
+
+Code
+public class Main {
+    public static void main(String[] args) {
+        int[] numbers = {10, 20, 30};
+        System.out.println(numbers[5]);
+    }
+}
+Output
+Exception in thread "main"
+java.lang.ArrayIndexOutOfBoundsException: Index 5 out of bounds
+solve this
+
+public class Main {
+    public static void main(String[] args) {
+        try {
+            int[] numbers = {10, 20, 30};
+            System.out.println(numbers[5]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Invalid array index.");
+        }
+        System.out.println("Program End");
+    }
+}
+output
+Invalid array index.
+Program End
+
+
+ NumberFormatException
+Cause
+
+Occurs when converting a non-numeric string into a number.
+
+Code
+public class Main {
+    public static void main(String[] args) {
+        String value = "ABC";
+        int number = Integer.parseInt(value);
+        System.out.println(number);
+    }
+}
+Output
+Exception in thread "main"
+java.lang.NumberFormatException
+solve this
+public class Main {
+    public static void main(String[] args) {
+
+        try {
+
+            String value = "ABC";
+
+            int number = Integer.parseInt(value);
+
+            System.out.println(number);
+
+        } catch (NumberFormatException e) {
+
+            System.out.println("Invalid number! Please enter only numeric values.");
+
+        }
+
+        System.out.println("Program End");
+    }
+}
+output
+Invalid number! Please enter only numeric values.
+Program End
+
+InputMismatchException
+Cause
+
+Occurs when the user enters the wrong input type.
+
+Code
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter your age: ");
+
+        int age = sc.nextInt();
+
+        System.out.println("Age: " + age);
+
+    }
+}
+Input
+Enter your age:
+ABC
+Output
+Exception in thread "main"
+java.util.InputMismatchException
+solve this
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        try {
+
+            System.out.print("Enter your age: ");
+
+            int age = sc.nextInt();
+
+            System.out.println("Age: " + age);
+
+        } catch (InputMismatchException e) {
+
+            System.out.println("Invalid input! Please enter a valid number.");
+
+        }
+
+        sc.close();
+    }
+}
+output
+Invalid input! Please enter a valid number.
+
+Common Exceptions in Java
+Exception	               Cause
+Arithmetic
+Exception    
+ 	                Dividing a number by zero
+NullPointerException
+                	Accessing a null object
+ArrayIndexOut
+OfBoundsException
+	            Accessing an invalid array                              index
+NumberFormat
+Exception	Converting an invalid 
+                         string to a number                          
+InputMismatch
+Exception	    Entering the wrong input type
+
+problems 1
+
+ATM Withdrawal ⭐⭐⭐
+Problem
+
+Create an ATM program.
+
+User enters the withdrawal amount.
+
+If the balance is insufficient, display:
+
+Insufficient Balance.
+If the user enters text instead of a number, handle the exception.
+
+Exception: InputMismatchException
+
+problem 2
+Login System ⭐⭐⭐⭐
+Problem
+
+Create a login program.
+
+User enters username and password.
+Convert the user ID from String to int.
+If conversion fails, display:
+Invalid User ID.
+
+Exception: NumberFormatException
+
+problem 3
+Employee Salary ⭐⭐⭐⭐
+Problem
+
+Create a salary calculator.
+
+Enter salary.
+Enter bonus.
+Calculate the total.
+If the salary is entered as text, handle the exception.
+
+Exception: InputMismatchException
+File Handling
+File Handling is used to perform operations such as create, read, write, and delete files stored on the computer
+Why is File Handling Used?
+
+We use File Handling to:
+
+=> Store data permanently.
+=> Read data from a file.
+=>Write data to a file.
+=> Update file contents.
+=>Delete unwanted files.
+
+  File             Create, delete, and 
+             check files
+
+FileWriter	Write data into a file
+FileReader	Read data from a file
+BufferedReader	Read file line by line
+Scanner	       Read data from a file
+
+File Handling Methods
+Method	Purpose
+createNewFile()	 Creates a new file
+exists()	Checks whether the file exists
+delete()	Deletes the file
+write()	          Writes data into the file
+close()        	Closes the file
+hasNextLine()	Checks whether another line exists
+nextLine()	Reads one line from the file
+
+Create a File
+createNewFile() is used to create a new file.
+If the file is created successfully, it returns true.
+If the file already exists, it returns false.
+Syntax
+File file = new File("filename.txt");
+file.createNewFile();
+
+Program
+import java.io.File;
+import java.io.IOException;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        try {
+
+            File file = new File("student.txt");
+
+            if (file.createNewFile()) {
+
+                System.out.println("File Created Successfully.");
+
+            } else {
+
+                System.out.println("File Already Exists.");
+
+            }
+
+        } catch (IOException e) {
+
+            System.out.println("Error Creating File.");
+
+        }
+
+    }
+
+}
+Output (First Time)
+File Created Successfully.
+Output (If File Already Exists)
+File Already Exists.
+2. Write into a File
+
+Syntax
+FileWriter writer = new FileWriter("student.txt");
+writer.write("Hello");
+
+writer.close();
+
+Program
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        try {
+
+            FileWriter writer = new FileWriter("student.txt");
+
+            writer.write("Name: Hemalatha\n");
+            writer.write("Age: 22\n");
+
+            writer.close();
+
+            System.out.println("Data Written Successfully.");
+
+        } catch (IOException e) {
+
+            System.out.println("Error Writing File.");
+
+        }
+
+    }
+
+}
+Output
+Data Written Successfully.
+File Content
+Name: Hemalatha
+Age: 22
+3. Read a File
+
+Syntax
+Scanner sc = new Scanner(file);
+
+while(sc.hasNextLine()){
+
+    System.out.println(sc.nextLine());
+
+}
+Program
+import java.io.File;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        try {
+
+            File file = new File("student.txt");
+
+            Scanner sc = new Scanner(file);
+
+            while (sc.hasNextLine()) {
+
+                System.out.println(sc.nextLine());
+
+            }
+
+            sc.close();
+
+        } catch (Exception e) {
+
+            System.out.println("File Not Found.");
+
+        }
+
+    }
+
+}
+Output
+Name: Hemalatha
+Age: 22
+4. Delete a File
+delete() is used to remove a file from the computer.
+Syntax
+file.delete();
+
+Program
+import java.io.File;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        File file = new File("student.txt");
+
+        if (file.delete()) {
+
+            System.out.println("File Deleted Successfully.");
+
+        } else {
+
+            System.out.println("File Not Found.");
+
+        }
+
+    }
+
+}
+Output
+File Deleted Successfully.
+5. Check Whether a File Exists
+Syntax
+file.exists();
+exists() checks whether a file is available or not.
+Program
+import java.io.File;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        File file = new File("student.txt");
+
+        if (file.exists()) {
+
+            System.out.println("File Exists.");
+
+        } else {
+
+            System.out.println("File Does Not Exist.");
+
+        }
+
+    }
+
+}
+
+
+problem 1
+Student Result
+
+Create a file named result.txt.
+
+Store:
+
+Student Name
+Tamil Mark
+English Mark
+Maths Mark
+
+Read the file and display the details.
+Problem 2: Hospital Patient Record
+
+Create patient.txt.
+
+Store:
+
+Patient ID
+Patient Name
+Blood Group
+Disease
+
+Read all patient details from the file.
+File Methods
+
+Java File class-la use pannura important methods.
+
+Method	Purpose	Return Type
+createNewFile()	Create new file	boolean
+exists()	Check file exists	boolean
+delete()	Delete file	boolean
+canRead()	Check file can be read	boolean
+canWrite()	Check file can be written	boolean
+getName()	Get file name	String
+getAbsolutePath()	Get complete file path	String
+length()	Get file size	long
+isFile()	Check whether it is a file	boolean
+isDirectory()	Check whether it is a folder	boolean
+Example
+File file = new File("student.txt");
+
+System.out.println(file.getName());
+
+System.out.println(file.exists());
+
+System.out.println(file.length());
+
+System.out.println(file.canRead());
+
+System.out.println(file.canWrite());
+
+Output
+
+student.txt
+
+true
+
+120
+
+true
+
+true
