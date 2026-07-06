@@ -1,0 +1,535 @@
+What is Data?
+Data is any information that can be stored and processed by a computer.
+Examples:
+
+Student Name
+Age
+Marks
+Salary
+An Object is a real-world entity that contains data (variables) and behavior (methods).
+
+Example:
+A Student has:
+
+Name
+Age
+Marks
+
+These are data.
+
+A Student can:
+Study
+Write Exam
+These are behaviors.
+Array Limitations
+
+
+Arrays have some limitations.
+
+Fixed size
+Cannot grow dynamically
+Insertion is difficult
+Deletion is difficult
+Searching takes more effort
+Sorting requires extra code
+Java introduced the Collection Framework.
+Fixedsize
+Example 1: Classroom Example 
+Suppose your classroom has only 3 chairs.
+Chair 1 -> Ravi
+Chair 2 -> Kumar
+Chair 3 -> Priya
+Now another student comes.
+Rahul
+Ask your students:
+"Can Rahul sit? "
+Answer:
+No, because there are only 3 chairs.
+To seat Rahul, you must buy a new classroom or new chairs.
+Array is exactly like this.
+Example 2: Java Code
+public class Main {
+    public static void main(String[] args) {
+
+        int[] marks = new int[3];
+
+        marks[0] = 80;
+        marks[1] = 90;
+        marks[2] = 70;
+
+        System.out.println(marks[0]);
+        System.out.println(marks[1]);
+        System.out.println(marks[2]);
+    }
+}
+
+Array Size = 3
+
+Index
+0      1      2
++-----+-----+-----+
+| 80  | 90  | 70  |
++-----+-----+-----+
+Can I add here?
+Index 3 
+Not Available
+"Imagine instead of creating a new array and copying everything, Java automatically increases the size whenever we add a new element. That is exactly what Collections (like ArrayList) do."
+
+ArrayList<Integer> marks = new ArrayList<>();
+
+marks.add(80);
+marks.add(90);
+marks.add(70);
+marks.add(95);   // No error
+marks.add(100);  // Sti
+Why Collection was Introduced?
+
+
+To solve all these problems, Java introduced the Collection Framework.
+Collections allow us to:
+
+Store multiple objects
+Increase size dynamically
+Add elements easily
+Remove elements easily
+Search easily
+Sort easily
+
+
+What is Collection in Java?
+
+Definition:
+Collection is a framework in Java used to store and manage multiple objects (data) in a single place.
+Collection use pannumbothu:
+
+=>Dynamic size (automatic size increase/decrease)
+=>Easy to add data
+=>Easy to remove data
+=>Easy to search
+=>Easy to sort
+
+example
+Imagine you have a bus with only 3 seats.
+
+Ravi 
+Kumar 
+Priya 
+
+Now Rahul comes.
+
+Can Rahul sit?
+
+No.
+
+Because all seats are occupied.
+
+You need another bus.
+
+This is exactly how an Array works.
+
+Now imagine a bus where new seats are added automatically whenever a new passenger comes.
+
+That is like a Collection.
+Java Example
+import java.util.ArrayList;
+
+public class Main {
+    public static void main(String[] args) {
+
+        ArrayList<String> students = new ArrayList<>();
+
+        students.add("Ravi");
+        students.add("Kumar");
+        students.add("Priya");
+
+Output
+[Ravi, Kumar, Priya]
+Explanation
+ArrayList<String> students = new ArrayList<>();
+Creates an ArrayList to store student names.
+                    JAVA COLLECTION FRAMEWORK
+                              │
+          ┌───────────────────┴───────────────────┐
+          │                                       │
+   Collection Interface                     Map Interface
+          │                                       │
+   ┌──────┼───────────┐                   ┌────────┼──────────┐
+   │      │           │                   │        │          │
+ List     Set       Queue             HashMap LinkedHashMap TreeMap
+   │       │           │
+   │       │      PriorityQueue
+   │
+ ┌─-───────────────┐
+ │                 │
+ArrayList     LinkedList      Vector
+
+list=> List stores elements in order.Duplicate values are allowed.
+set =>uniques
+queue=> its follows fifo
+priority queue=> its a priority
+arraylist=>list implementation store the  dynamicarray
+linked list=>conneted for the node to node
+Vector=>
+Vector is an old List implementation. threadsafe
+hashset=>store uniqueit does not maintains insertion order
+LinkedHashSet=>LinkedHashSet stores unique elements and maintains insertion order.
+treeset=>TreeSet stores unique elements in sorted order.
+Map Interface=>key and valueKeys are unique.
+HashMap=>HashMap stores Key–Value pairs.
+LinkedHashMap=>LinkedHashMap stores Key–Value pairs and maintains insertion order.
+treemap=TreeMap stores Key–Value pairs in sorted order based on the key.
+
+Order is not maintained.
+
+
+
+What is Collection Interface?
+The Collection is an interface in the Java Collection Framework.
+
+It is the parent interface for List, Set, and Queue.
+
+It provides common methods to store and manage groups of objects.
+
+Why Collection Interface?
+
+Imagine Java has three different data structures:
+List
+Set
+Queue
+All of them need common operations like:
+
+Add data
+Remove data
+Check data
+Find size
+
+Instead of writing the same methods in every interface, Java created one common interface called
+Real-Life Example
+
+Imagine a School.
+
+Principal gives the same rules to all classes.
+
+Principal
+
+│
+
+├── Class A
+
+├── Class B
+
+└── Class C
+
+Rules:
+
+Wear uniform
+Maintain attendance
+Write exams
+
+Every class follows the same rules.
+Common Methods in Collection Interface
+Method	Purpose
+add()	Add an element
+remove()	Remove an element
+contains()	Check element exists
+size()	Number of elements
+isEmpty()	Check if collection is empty
+clear()	Remove all elements
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Collection<String> names = new ArrayList<>();
+        names.add("Ravi");
+        names.add("Kumar");
+        names.add("Priya");
+        System.out.println(names);
+        System.out.println(names.size());
+        System.out.println(names.contains("Kumar"));
+        names.remove("Priya");
+        System.out.println(names);
+    }
+}
+output
+[Ravi, Kumar, Priya]
+3
+true
+[Ravi, Kumar]
+
+
+
+sql 
+
+SQL	MySQL
+SQL stands for Structured Query Language.	MySQL is a Relational Database Management System (RDBMS).
+SQL is a language.	MySQL is software.
+SQL is used to write queries.	MySQL is used to store and manage data.
+SQL has commands like SELECT, INSERT, UPDATE, DELETE.	MySQL executes SQL commands.
+SQL is a standard language.	MySQL is one implementation that uses SQL.
+SQL cannot store data by itself.	MySQL stores data in databases
+
+sql query
+
+
+Create a Database
+CREATE DATABASE School;
+Use the Database
+USE School;
+Create a Table
+CREATE TABLE Student (
+    id INT,
+    name VARCHAR(50),
+    age INT
+);
+Insert Data
+INSERT INTO Student VALUES (101, 'Ravi', 20);
+
+
+
+INSERT INTO Employee (empId, empName, salary)
+VALUES
+(101, 'Ravi', 25000),
+(102, 'Priya', 30000),
+(103, 'Kumar', 28000);/
+
+
+View All Data
+SELECT * FROM Student;
+Display Only Name
+SELECT name FROM Student;
+SELECT * FROM Student
+WHERE id = 101;
+Update Data
+UPDATE Student
+SET age = 22
+WHERE id = 102;
+
+Add a new column
+ALTER TABLE Employee
+ADD age INT;
+Delete a column
+ALTER TABLE Employee
+DROP COLUMN age;
+
+Rename a column
+ALTER TABLE Employee
+RENAME COLUMN name TO emp_name;
+rename to table
+ALTER TABLE Employee
+RENAME TO Staff;
+Modify a column's datatype
+Rename a table
+DROP TABLE Student;
+DROP DATABASE School;
+
+
+
+                    SELECT QUERY
+                         │
+     ┌───────────────────┼───────────────────┐
+     │                   │                   │
+ Basic SELECT        Filtering          Sorting
+     │                   │                   │
+SELECT *           WHERE             ORDER BY
+SELECT Column      AND               ASC
+                   OR                DESC
+                   NOT
+                   IN
+                   BETWEEN
+                   LIKE
+                   IS NULL
+                         │
+                  Aggregate Functions
+                         │
+       COUNT()  SUM()  AVG()  MIN()  MAX()
+                         │
+                     GROUP BY
+                         │
+                      HAVING
+                         │
+                      DISTINCT
+                         │
+                       LIMIT
+                         │
+                       ALIAS
+                         │
+                        JOIN
+
+
+Step 1: SELECT *
+
+Display all records.
+
+SELECT * FROM Employee;
+
+Tanglish:
+Employee table-la irukkura ella rows-um, ella columns-um display pannum.
+
+Step 2: SELECT Particular Column
+SELECT name FROM Employee;
+SELECT id, name FROM Employee;
+
+Tanglish:
+Specific columns mattum display pannum.
+
+Step 3: WHERE
+SELECT * FROM Employee
+WHERE salary > 25000;
+
+Tanglish:
+Condition satisfy panna records mattum display pannum.
+
+Step 4: AND
+SELECT * FROM Employee
+WHERE salary > 25000
+AND age > 22;
+
+Tanglish:
+Rendu conditions-um true irukkanum.
+
+Step 5: OR
+SELECT * FROM Employee
+WHERE name='Ravi'
+OR name='Priya';
+
+Tanglish:
+Edhavathu oru condition true irundha pothum.
+
+Step 6: NOT
+SELECT * FROM Employee
+WHERE NOT salary = 25000;
+
+Tanglish:
+Condition-ku opposite result.
+
+Step 7: IN
+SELECT * FROM Employee
+WHERE id IN (101,103);
+
+Tanglish:
+List-la irukkura values mattum edukkum.
+
+Step 8: BETWEEN
+SELECT * FROM Employee
+WHERE salary BETWEEN 20000 AND 30000;
+
+Tanglish:
+Range-kulla irukkura values display pannum.
+
+Step 9: LIKE
+SELECT * FROM Employee
+WHERE name LIKE 'R%';
+
+Tanglish:
+R letter-la start aagura names.
+
+Step 10: ORDER BY
+
+Ascending
+
+SELECT * FROM Employee
+ORDER BY salary ASC;
+
+Descending
+
+SELECT * FROM Employee
+ORDER BY salary DESC;
+
+Tanglish:
+Data sort pannum.
+
+Step 11: DISTINCT
+SELECT DISTINCT department
+FROM Employee;
+
+Tanglish:
+Duplicate values remove pannum.
+
+Step 12: Aggregate Functions
+
+Count
+
+SELECT COUNT(*) FROM Employee;
+
+Sum
+
+SELECT SUM(salary) FROM Employee;
+
+Average
+
+SELECT AVG(salary) FROM Employee;
+
+Minimum
+
+SELECT MIN(salary) FROM Employee;
+
+Maximum
+
+SELECT MAX(salary) FROM Employee;
+Step 13: GROUP BY
+SELECT department,
+COUNT(*)
+FROM Employee
+GROUP BY department;
+
+Tanglish:
+Same department employees-a group pannum.
+
+Step 14: HAVING
+SELECT department,
+COUNT(*)
+FROM Employee
+GROUP BY department
+HAVING COUNT(*) > 2;
+
+Tanglish:
+Group create pannina apram filter pannum.
+
+Step 15: LIMIT
+SELECT * FROM Employee
+LIMIT 3;
+
+Tanglish:
+First 3 rows mattum display pannum.
+
+Step 16: Alias
+SELECT name AS Employee_Name
+FROM Employee;
+
+Tanglish:
+Temporary column name kudukkum.
+
+Step 17: JOIN (Advanced)
+SELECT *
+FROM Employee
+INNER JOIN Department
+ON Employee.deptid = Department.id;
+
+Tanglish:
+Rendu tables-a connect panni data display pannum.
+
+Teaching Flow
+SELECT
+   │
+   ├── SELECT *
+   ├── SELECT column
+   ├── WHERE
+   │     ├── AND
+   │     ├── OR
+   │     ├── NOT
+   │     ├── IN
+   │     ├── BETWEEN
+   │     └── LIKE
+   ├── ORDER BY
+   ├── DISTINCT
+   ├── Aggregate Functions
+   │     ├── COUNT
+   │     ├── SUM
+   │     ├── AVG
+   │     ├── MIN
+   │     └── MAX
+   ├── GROUP BY
+   ├── HAVING
+   ├── LIMIT
+   ├── ALIAS
+   └── JOIN
+📚 Best ord

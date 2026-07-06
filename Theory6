@@ -572,25 +572,15 @@ file.delete();
 
 Program
 import java.io.File;
-
 public class Main {
-
     public static void main(String[] args) {
-
         File file = new File("student.txt");
-
         if (file.delete()) {
-
             System.out.println("File Deleted Successfully.");
-
         } else {
-
             System.out.println("File Not Found.");
-
         }
-
     }
-
 }
 Output
 File Deleted Successfully.
@@ -676,9 +666,7 @@ System.out.println(file.canRead());
 System.out.println(file.canWrite());
 
 Output
-
 student.txt
-
 true
 
 120
