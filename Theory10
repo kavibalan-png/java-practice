@@ -1,0 +1,669 @@
+What is a Thread in Java?
+A Thread is a smallest unit of execution inside a program.
+Normally, a Java program runs one task at a time. But using threads, we can run multiple tasks simultaneously (at the same time).
+Similarly, in Java:
+example
+public class Demo {
+
+    public static void main(String[] args) {
+
+        System.out.println("Hello");
+
+        System.out.println("Java");
+
+        System.out.println("Thread");
+
+    }
+
+}
+Output
+Hello
+Java
+Thread
+=>One thread can print numbers.
+=>Another thread can download data.
+=>Another thread can read a file.
+Why do we use Threads?
+Threads are used to:
+=>Run multiple tasks simultaneously
+=>Improve program performance
+=>Keep the application responsive
+=>Save time by doing tasks in parallel
+Examples
+=>Games (graphics + sound + user input)
+=>Web browsers (loading multiple tabs)
+=>File downloading
+Example Without Thread
+public class Demo {
+    public static void main(String[] args) {
+
+        for(int i = 1; i <= 5; i++) {
+            System.out.println("Task 1 : " + i);
+        }
+
+        for(int i = 1; i <= 5; i++) {
+            System.out.println("Task 2 : " + i);
+        }
+    }
+}
+Output
+Task 1 : 1
+Task 1 : 2
+Task 1 : 3
+Task 1 : 4
+Task 1 : 5
+Task 2 : 1
+Task 2 : 2
+Task 2 : 3
+Task 2 : 4
+Task 2 : 5
+Here, Task 2 starts only after Task 1 finishes.
+Start()
+start() is a method of the Thread class that creates a new thread and starts its execution.
+When you call start(), Java creates a new thread and automatically calls the run() method.
+Thread methods
+
+Syntax
+thread.start();
+example
+MyThread t = new MyThread();(object creation)
+t.start();(create a new thread)
+Run()
+run() is the method that contains the code or task to be executed by the thread.
+When a thread starts, the run() method is executed automatically.
+Syntax
+public void run() {
+    // Code to execute
+}
+
+sleep(milliseconds)
+What is it?
+Pauses the current thread for a specified time.
+Why use it?
+To delay execution.
+join()
+What is it?
+Makes one thread wait until another thread finishes.
+Why use it?
+To execute tasks in sequence.
+currentThread()
+What is it?
+Returns the currently executing thread.
+Why use it?
+To know which thread is running.
+getName()
+What is it?
+Returns the thread name.
+setName()
+What is it?
+Changes the thread name.
+isAlive()
+What is it?
+Checks whether a thread is still running.
+yield()
+What is it?
+Hints that the current thread is willing to let another thread run.
+interrupt()
+What is it?
+Sends an interrupt signal to a thread.
+Example With Thread
+class MyThread extends Thread {
+
+    public void run() {
+        for(int i = 1; i <= 5; i++) {
+            System.out.println("Child Thread : " + i);
+        }
+    }
+}
+
+public class Demo {
+    public static void main(String[] args) {
+
+        MyThread t = new MyThread();
+        t.start();
+
+        for(int i = 1; i <= 5; i++) {
+            System.out.println("Main Thread : " + i);
+        }
+    }
+}
+Possible Output
+Main Thread : 1
+Child Thread : 1
+Main Thread : 2
+Child Thread : 2
+Main Thread : 3
+Child Thread : 3
+Main Thread : 4
+Child Thread : 4
+Main Thread : 5
+Child Thread : 5
+
+Join()
+class MyThread extends Thread {
+
+    public void run() {
+
+        for(int i=1;i<=5;i++){
+
+            System.out.println("Child : " + i);
+
+        }
+
+    }
+
+}
+
+public class Demo {
+
+    public static void main(String[] args) throws Exception {
+
+        MyThread t=new MyThread();
+
+        t.start();
+
+        t.join();
+
+        System.out.println("Main Finished");
+
+    }
+
+}
+output
+Child : 1
+Child : 2
+Child : 3
+Child : 4
+Child : 5
+Main Finished
+class MyThread extends Thread {
+    public void run() {
+        try {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println("Child Thread : " + i);
+                Thread.sleep(1000);   // Pause for 1 second
+            }
+
+        } catch (InterruptedException e) {
+            System.out.println("Thread Interrupted");
+        }
+    }
+}
+public class Demo {
+    public static void main(String[] args) {
+        MyThread t = new MyThread();
+        t.start();
+    }
+}
+Output
+Child Thread : 1
+(Wait 1 second)
+
+Child Thread : 2
+(Wait 1 second)
+
+Child Thread : 3
+(Wait 1 second)
+
+Child Thread : 4
+(Wait 1 second)
+
+Child Thread : 5
+
+
+current thread()
+public class Demo {
+    public static void main(String[] args) {
+        System.out.println(Thread.currentThread());
+    }
+}
+Ravi  → Priority 10
+
+Kumar → Priority 5
+
+Priya → Priority 1
+Output
+
+Thread[main,5,main]
+public class Demo {
+
+    public static void main(String[] args) {
+
+        System.out.println(Thread.currentThread().getName());
+
+    }
+
+}
+
+Output
+main
+public class Demo {
+
+    public static void main(String[] args) {
+
+        Thread.currentThread().setName("another");
+
+        System.out.println(Thread.currentThread().getName());
+
+    }
+
+}
+
+Output
+
+another
+
+class MyThread extends Thread {
+    public void run() {
+        System.out.println("Running");
+    }
+}
+public class Demo {
+    public static void main(String[] args) {
+        MyThread t = new MyThread();
+        System.out.println(t.isAlive());
+        t.start();
+        System.out.println(t.isAlive());
+    }
+}
+
+Possible Output
+
+false
+true
+Running
+yield()
+yield() does not stop the thread.
+It only requests the scheduler to give another thread a chance.
+The scheduler may or may not accept the request.
+class MyThread extends Thread {
+    public void run() {
+        for(int i=1;i<=5;i++){
+            System.out.println("Child : " + i);
+            Thread.yield();
+        }
+    }
+}
+public class Demo {
+    public static void main(String[] args) {
+        MyThread t = new MyThread();
+        t.start();
+        for(int i=1;i<=5;i++){
+            System.out.println("Main : " + i);
+        }
+    }
+}
+Possible Output
+Child : 1
+Main : 1
+Main : 2
+Child : 2
+Main : 3
+Child : 3
+Main : 4
+Child : 4
+Main : 5
+Child : 5
+or
+Child : 1
+Child : 2
+Child : 3
+Child : 4
+Child : 5
+Main : 1
+Main : 2
+Main : 3
+Main : 4
+Main : 5
+Example
+class MyThread extends Thread {
+    public void run() {
+        try{
+            Thread.sleep(5000);
+        }
+        catch(Exception e){
+            System.out.println("Interrupted");
+        }
+    }
+}
+public class Demo {
+    public static void main(String[] args) {
+        MyThread t=new MyThread();
+        t.start();
+        t.interrupt();
+    }
+}
+
+Output
+
+Interrupted
+
+Runnable interface
+Runnable is a predefined Java interface that contains a single method, run(). It is used to define the task that a thread should execute. To run it as a thread, we pass the Runnable object to a Thread object and then call start().
+class MyThread implements Runnable {
+
+    public void run() {
+
+        System.out.println("Child Thread Running");
+
+    }
+
+}
+
+public class Demo {
+
+    public static void main(String[] args) {
+
+        MyThread obj = new MyThread();
+
+        Thread t = new Thread(obj);
+
+        t.start();
+
+    }
+
+}
+Output
+Child Thread Running
+
+class Animal {
+
+    public void sound() {
+        System.out.println("Animal is making a sound");
+    }
+
+}
+
+class Dog extends Animal implements Runnable {
+
+    @Override
+    public void run() {
+
+        System.out.println("Dog Thread is Running");
+
+    }
+
+}
+
+public class Demo {
+
+    public static void main(String[] args) {
+
+        Dog d = new Dog();
+
+        // Calling Animal class method
+        d.sound();
+
+        // Creating Thread object
+        Thread t = new Thread(d);
+
+        // Starting the thread
+        t.start();
+
+    }
+
+}
+output
+Animal is making a sound
+Dog Thread is Running
+
+Synchronization
+Synchronization is a process that allows only one thread to access a shared resource at a time.
+It prevents data inconsistency and race conditions when multiple threads access the same object or resource.
+We use Synchronization to:
+Prevent data inconsistency.
+Avoid race conditions.
+Protect shared resources.
+Ensure only one thread accesses a resource at a time.
+Maintain correct program output.
+program
+
+class Table {
+
+    synchronized void print(int n) {
+
+        for (int i = 1; i <= 5; i++) {
+            System.out.println(n * i);
+        }
+
+    }
+}
+
+class MyThread1 extends Thread {
+
+    Table t;
+
+    MyThread1(Table t) {
+        this.t = t;
+    }
+
+    public void run() {
+        t.print(5);
+    }
+
+}
+
+class MyThread2 extends Thread {
+
+    Table t;
+
+    MyThread2(Table t) {
+        this.t = t;
+    }
+
+    public void run() {
+        t.print(10);
+    }
+
+}
+
+public class Demo {
+
+    public static void main(String[] args) {
+
+        Table obj = new Table();
+
+        MyThread1 t1 = new MyThread1(obj);
+        MyThread2 t2 = new MyThread2(obj);
+
+        t1.start();
+        t2.start();
+
+    }
+
+}
+ourpur
+
+5
+10
+15
+20
+25
+10
+20
+30
+40
+50
+
+
+class Table {
+
+    synchronized void print(int n) {
+
+        for (int i = 1; i <= 5; i++) {
+            System.out.println(n * i);
+        }
+
+    }
+}
+
+class MyThread1 extends Thread {
+
+    Table t;
+
+    MyThread1(Table t) {
+        this.t = t;
+    }
+
+    public void run() {
+        t.print(5);
+    }
+
+}
+
+class MyThread2 extends Thread {
+
+    Table t;
+
+    MyThread2(Table t) {
+        this.t = t;
+    }
+
+    public void run() {
+        t.print(10);
+    }
+
+}
+
+public class Demo {
+
+    public static void main(String[] args) {
+
+        Table obj = new Table();
+
+        MyThread1 t1 = new MyThread1(obj);
+        MyThread2 t2 = new MyThread2(obj);
+
+        t1.start();
+        t2.start();
+
+    }
+
+}
+ourpur
+
+5
+10
+15
+20
+25
+10
+20
+30
+40
+50
+Race Condition 
+A Race Condition occurs when two or more threads access and modify the same shared resource at the same time, causing unexpected or incorrect results.
+Race Condition = Problem (multiple threads modify the same data at the same time).
+
+sample code
+class Counter {
+
+    int count = 0;
+
+    public void increment() {
+        count++;
+    }
+
+}
+
+class MyThread extends Thread {
+
+    Counter c;
+
+    MyThread(Counter c) {
+        this.c = c;
+    }
+
+    public void run() {
+
+        for (int i = 1; i <= 1000; i++) {
+            c.increment();
+        }
+
+    }
+
+}
+
+public class Demo {
+
+    public static void main(String[] args) throws Exception {
+
+        Counter c = new Counter();
+
+        MyThread t1 = new MyThread(c);
+        MyThread t2 = new MyThread(c);
+
+        t1.start();
+        t2.start();
+
+        t1.join();
+        t2.join();
+
+        System.out.println("Count = " + c.count);
+
+    }
+
+}
+output willl be chnaged every time
+
+
+
+
+
+
+
+
+
+
+
+
+
+Dead lock
+
+A Deadlock is a situation where two or more threads are waiting for each other forever, and none of them can continue their execution.
+
+As a result, the program gets stuck.
+Example
+class A {
+
+    synchronized void methodA(B b) {
+
+        System.out.println("Thread 1 locked A");
+
+        b.last();
+
+    }
+
+    synchronized void last() {
+        System.out.println("Inside A");
+    }
+
+}
+
+class B {
+
+    synchronized void methodB(A a) {
+
+        System.out.println("Thread 2 locked B");
+
+        a.last();
+
+    }
+
+    synchronized void last() {
+        System.out.println("Inside B");
+    }
+
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        A a = new A();
+        B b = new B();
+        Thread t1 = new Thread(() -> a.methodA(b));
+        Thread t2 = new Thread(() -> b.methodB(a));
+        t1.start();
+        t2.start();
+    }
+}

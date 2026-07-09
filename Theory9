@@ -1,0 +1,943 @@
+What is Set in Java?
+Set is an interface in the Java Collection Framework that stores only unique elements. It does not allow duplicate values.
+A Set is a collection that contains only unique elements. If you try to add a duplicate element, it will not be stored.
+Why do we use Set?
+
+We use Set when:
+
+We want to store unique values only.
+We want to remove duplicate elements automatically.
+We need fast searching (especially with HashSet).
+We do not need to access elements using an index.
+import java.util.HashSet;
+
+public class SetExample {
+    public static void main(String[] args) {
+
+        HashSet<String> fruits = new HashSet<>();
+
+        fruits.add("Apple");
+        fruits.add("Orange");
+        fruits.add("Apple");
+        fruits.add("Mango");
+
+        System.out.println(fruits);
+    }
+}
+
+types of Set
+HashSet
+Does not allow duplicates.
+Does not maintain insertion order.
+Fastest among the Set implementations.
+LinkedHashSet
+Does not allow duplicates.
+Maintains insertion order.
+TreeSet
+Does not allow duplicates.
+Stores elements in sorted (ascending) order.
+Common Set Methods
+
+add()        	Adds an element
+remove()	Removes an element
+contains( )   Checks whether an element exists
+size()	       Returns the number of elements
+isEmpty()	Checks whether the set is empty
+clear() 	Removes all elements
+iterator()	Used to traverse the elements
+
+example
+import java.util.HashSet;
+import java.util.Iterator;
+
+public class SetMethods {
+    public static void main(String[] args) {
+
+        HashSet<String> set = new HashSet<>();
+
+        // add()
+        set.add("Java");
+        set.add("Python");
+        set.add("C");
+        System.out.println("After add(): " + set);
+
+        // contains()
+        System.out.println("Contains Java: " + set.contains("Java"));
+
+        // size()
+        System.out.println("Size: " + set.size());
+
+        // remove()
+        set.remove("Python");
+        System.out.println("After remove(): " + set);
+
+        // isEmpty()
+        System.out.println("Is Empty: " + set.isEmpty());
+
+        // iterator()
+        System.out.println("Using Iterator:");
+        Iterator<String> it = set.iterator();
+
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
+
+        // set is convert to toArray()
+        Object[] arr = set.toArray();
+        System.out.println("Array Elements:");
+        for (Object obj : arr) {
+            System.out.println(obj);
+        }
+
+        // clear()
+        set.clear();
+        System.out.println("After clear(): " + set);
+    }
+}
+output
+After add(): [Java, Python, C]
+Contains Java: true
+Size: 3
+After remove(): [Java, C]
+Is Empty: false
+Using Iterator:
+Java
+C
+Array Elements:
+Java
+C
+After clear(): []
+
+Hash set
+HashSet is a class in Java that implements the Set interface. It stores only unique elements, does not allow duplicates, does not maintain insertion order, and provides fast performance for adding, removing, and searching elements.
+
+Why is HashSet used?
+
+We use HashSet when:
+To store unique elements.
+To automatically remove duplicate values.
+For fast searching using contains().
+For fast insertion and deletion. 
+When the order of elements is not important.
+
+import java.util.HashSet;
+
+public class HashSetExample {
+    public static void main(String[] args) {
+
+        HashSet<String> set = new HashSet<>();
+
+        set.add("Java");
+        set.add("Python");
+        set.add("Java");
+        set.add("C");
+
+        System.out.println(set);
+    }
+}
+output
+[Java, Python, C]
+
+Hash set methods
+add(E e)		Adds an element.
+remove(Object o)	Removes an element.
+contains(Object o)	Checks if an element exists.
+size()		    Returns the number of elements.
+isEmpty()	Checks whether the set is empty.
+clear()	void	Removes all elements.
+iterator()	Traverses the elements one by one.
+toArray()		Converts the set into an array.
+addAll(Collection c)Adds all elements from another collection.
+removeAll(Collection c)		Removes matching elements.
+retainAll(Collection c)		Keeps only common elements.
+containsAll(Collection c)     check if all elements exits
+
+
+import java.util.HashSet;
+
+public class HashSetMethods {
+    public static void main(String[] args) {
+
+        HashSet<String> set = new HashSet<>();
+
+        set.add("Java");
+        set.add("Python");
+        set.add("C");
+
+        System.out.println(set);
+
+        System.out.println(set.contains("Java"));
+
+        System.out.println(set.size());
+
+        set.remove("Python");
+
+        System.out.println(set);
+
+        System.out.println(set.isEmpty());
+
+        set.clear();
+
+        System.out.println(set);
+    }
+}
+output
+
+[Java, Python, C]
+true
+3
+[Java, C]
+false
+[]
+
+
+import java.util.HashSet;
+
+public class HashSetMethodsDemo {
+    public static void main(String[] args) {
+
+        HashSet<String> set1 = new HashSet<>();
+        set1.add("Java");
+        set1.add("Python");
+        set1.add("C");
+
+        HashSet<String> set2 = new HashSet<>();
+        set2.add("Python");
+        set2.add("C++");
+        set2.add("Java");
+
+        System.out.println("Set1 : " + set1);
+        System.out.println("Set2 : " + set2);
+
+        // addAll()
+        HashSet<String> addSet = new HashSet<>(set1);
+        addSet.addAll(set2);
+        System.out.println("\nAfter addAll(): " + addSet);
+
+        // removeAll()
+        HashSet<String> removeSet = new HashSet<>(set1);
+        removeSet.removeAll(set2);
+        System.out.println("After removeAll(): " + removeSet);
+
+        // retainAll()
+        HashSet<String> retainSet = new HashSet<>(set1);
+        retainSet.retainAll(set2);
+        System.out.println("After retainAll(): " + retainSet);
+
+        // containsAll()
+        System.out.println("containsAll(): " + set1.containsAll(retainSet));
+
+        // toArray()
+        Object[] arr = set1.toArray();
+
+        System.out.println("Array Elements:");
+        for (Object obj : arr) {
+            System.out.println(obj);
+        }
+    }
+}
+output
+Set1 : [Java, Python, C]
+Set2 : [Java, Python, C++]
+
+After addAll(): [Java, Python, C, C++]
+After removeAll(): [C]
+After retainAll(): [Java, Python]
+containsAll(): true
+Array Elements:
+Java
+Python
+C
+HashSet vs ArrayList
+HashSet	           ArrayList
+No duplicates	Duplicates allowed
+No insertion order	Maintains insertion order
+No index	Supports index
+Fast searching	Slower searching
+Implements Set	Implements List
+
+Tree set
+TreeSet is a class in Java that implements the Set interface. It stores unique elements, does not allow duplicate values, and automatically sorts the elements in ascending order.
+Why do we use TreeSet?
+
+We use TreeSet when:
+
+ We want to store unique elements.
+We want the elements to be automatically sorted.
+We want to remove duplicate values.
+We do not need index-based access.
+
+example
+import java.util.TreeSet;
+
+public class TreeSetExample {
+    public static void main(String[] args) {
+
+        TreeSet<Integer> set = new TreeSet<>();
+
+        set.add(50);
+        set.add(20);
+        set.add(40);
+        set.add(10);
+        set.add(30);
+
+        System.out.println(set);
+    }
+}
+output
+[10, 20, 30, 40, 50]
+sampe code
+import java.util.TreeSet;
+import java.util.Iterator;
+
+public class TreeSetMethods {
+    public static void main(String[] args) {
+
+        TreeSet<Integer> set = new TreeSet<>();
+
+        // add()
+        set.add(50);
+        set.add(20);
+        set.add(40);
+        set.add(10);
+        set.add(30);
+
+        System.out.println("After add() : " + set);
+
+        // contains()
+        System.out.println("Contains 20 : " + set.contains(20));
+
+        // size()
+        System.out.println("Size : " + set.size());
+
+        // first()
+        System.out.println("First Element : " + set.first());
+
+        // last()
+        System.out.println("Last Element : " + set.last());
+
+        // higher()
+        System.out.println("Higher than 30 : " + set.higher(30));
+
+        // lower()
+        System.out.println("Lower than 30 : " + set.lower(30));
+
+        // remove()
+        set.remove(20);
+        System.out.println("After remove() : " + set);
+
+        // pollFirst()
+        System.out.println("Poll First : " + set.pollFirst());
+
+        // pollLast()
+        System.out.println("Poll Last : " + set.pollLast());
+
+        System.out.println("After Poll Methods : " + set);
+
+        // iterator()
+        System.out.println("Using Iterator :");
+
+        Iterator<Integer> it = set.iterator();
+
+        while(it.hasNext())
+        {
+            System.out.println(it.next());
+        }
+
+        // isEmpty()
+        System.out.println("Is Empty : " + set.isEmpty());
+
+        // clear()
+        set.clear();
+
+        System.out.println("After clear() : " + set);
+
+        System.out.println("Is Empty : " + set.isEmpty());
+    }
+}
+output
+After add() : [10, 20, 30, 40, 50]
+Contains 20 : true
+Size : 5
+First Element : 10
+Last Element : 50
+Higher than 30 : 40
+Lower than 30 : 20
+After remove() : [10, 30, 40, 50]
+Poll First : 10
+Poll Last : 50
+After Poll Methods : [30, 40]
+Using Iterator :
+30
+40
+Is Empty : false
+After clear() : []
+Is Empty : true
+TreeSet	HashSet
+Stores unique elements	Stores unique elements
+Automatically sorts elements	Does not sort elements
+No duplicates	No duplicates
+Does not allow null	Allows one null
+Slower than HashSet	Faster than TreeSet
+
+Tree methods
+TreeSet Methods
+
+add(E e)		Adds an element.
+remove(Object o)	Removes an element.
+contains(Object o)	Checks whether an element exists.
+size()		Returns the number of elements.
+isEmpty()	Checks whether the set is empty.
+clear()		Removes all elements.
+first()		Returns the first (smallest) element.
+last()		Returns the last (largest) element.
+higher(E e)		Returns the next higher                              element.
+lower(E e)		Returns the next lower                           element.
+pollFirst()		Removes and returns the                          first element.
+pollLast()		Removes and returns the                         last element.
+iterator()	       Traverses the elements.
+
+
+Linked Hash set
+LinkedHashSet is a class in Java that implements the Set interface. It stores only unique elements, does not allow duplicate values, and maintains the insertion order of elements.
+Why is LinkedHashSet used?
+
+We use LinkedHashSet when:
+
+ We want to store unique elements.
+We want to remove duplicate values.
+We want to maintain the insertion order.
+We need faster searching than a list.
+
+sample code
+import java.util.LinkedHashSet;
+
+public class LinkedHashSetExample {
+    public static void main(String[] args) {
+
+        LinkedHashSet<String> set = new LinkedHashSet<>();
+
+        set.add("Java");
+        set.add("Python");
+        set.add("C");
+        set.add("Java");
+
+        System.out.println(set);
+    }
+}
+Output
+[Java, Python, C]
+
+program
+import java.util.LinkedHashSet;
+
+public class LinkedHashSetMethods {
+    public static void main(String[] args) {
+
+        LinkedHashSet<String> set = new LinkedHashSet<>();
+
+        // add()
+        set.add("Java");
+        set.add("Python");
+        set.add("C");
+        set.add("Java");
+
+        System.out.println("After add(): " + set);
+
+        // contains()
+        System.out.println("Contains Java: " + set.contains("Java"));
+
+        // size()
+        System.out.println("Size: " + set.size());
+
+        // remove()
+        set.remove("Python");
+        System.out.println("After remove(): " + set);
+
+        // isEmpty()
+        System.out.println("Is Empty: " + set.isEmpty());
+
+        // toArray()
+        Object[] arr = set.toArray();
+
+        System.out.println("Array Elements:");
+        for (Object obj : arr) {
+            System.out.println(obj);
+        }
+
+        // clear()
+        set.clear();
+        System.out.println("After clear(): " + set);
+    }
+}
+output
+After add(): [Java, Python, C]
+Contains Java: true
+Size: 3
+After remove(): [Java, C]
+Is Empty: false
+Array Elements:
+Java
+C
+After clear(): []
+
+      LinkedHashSet       HashSet    TreeSet
+Duplicate	No	     No	         No
+Order	 No	     Insertion Order	Sorted Order
+Index	 No	        No                  	 No
+Null	 One        One	             Not Allowed
+Speed	 Fastest	 Fast	          Slower
+
+
+Map Interface
+Map is an interface in Java that stores elements in key-value pairs. It does not allow duplicate keys, but it allows duplicate values.
+Why is Map used?
+
+We use Map when:
+
+ We want to store data as Key → Value pairs.
+ We want to search data quickly using a key.
+ Keys must be unique.
+It is useful for storing records like Student ID → Student Name.
+example
+import java.util.HashMap;
+public class MapExample {
+    public static void main(String[] args) {
+
+        HashMap<Integer, String> map = new HashMap<>();
+
+        map.put(101, "Ravi");
+        map.put(102, "Priya");
+        map.put(103, "Kumar");
+
+        System.out.println(map);
+    }
+}
+output
+{101=Ravi, 102=Priya, 103=Kumar}
+1. HashMap
+No duplicate keys.
+Does not maintain insertion order.
+Allows one null key and multiple null values.
+2. LinkedHashMap
+No duplicate keys.
+Maintains insertion order.
+Allows one null key.
+3. TreeMap
+No duplicate keys.
+Keys are automatically sorted.
+Does not allow null keys.
+Map Methods
+Method	            	Description
+put(K key, V value)	Adds a key-value pair.
+get(Object key)	    Returns the value for the given                                key.
+remove(Object key)		Removes a key-value pair.
+containsKey(Object key)		Checks whether a key exists.
+containsValue	    Checks whether a value exists.
+size()	int	Returns the number of key-value pairs.
+isEmpty()		Checks whether the map is empty.
+clear()	    Removes all key-value pairs.
+keySet()		Returns all keys.
+values()	Returns all values.
+entrySet()		Returns all key-value pairs.
+replace                Replaces the value of a key.
+putIfAbsent         	Adds the key-value pair                   only if the key does not exist.
+
+
+program
+import java.util.HashMap;
+
+public class MapMethods {
+    public static void main(String[] args) {
+
+        HashMap<Integer, String> map = new HashMap<>();
+
+        map.put(101, "Ravi");
+        map.put(102, "Priya");
+        map.put(103, "Kumar");
+
+        System.out.println("Map : " + map);
+
+        System.out.println("Get : " + map.get(102));
+
+        System.out.println("Contains Key : " + map.containsKey(101));
+
+        System.out.println("Contains Value : " + map.containsValue("Priya"));
+
+        System.out.println("Size : " + map.size());
+
+        map.remove(103);
+
+        System.out.println("After Remove : " + map);
+
+        System.out.println("Keys : " + map.keySet());
+
+        System.out.println("Values : " + map.values());
+
+        System.out.println("Entry Set : " + map.entrySet());
+
+        map.clear();
+
+        System.out.println("After Clear : " + map);
+    }
+}
+output
+Map : {101=Ravi, 102=Priya, 103=Kumar}
+Get : Priya
+Contains Key : true
+Contains Value : true
+Size : 3
+After Remove : {101=Ravi, 102=Priya}
+Keys : [101, 102]
+Values : [Ravi, Priya]
+Entry Set : [101=Ravi, 102=Priya]
+After Clear : {}
+
+import java.util.HashMap;
+
+public class PutIfAbsentExample {
+    public static void main(String[] args) {
+
+        HashMap<Integer, String> map = new HashMap<>();
+
+        map.put(101, "Ravi");
+
+        map.putIfAbsent(101, "Hema");
+        map.putIfAbsent(102, "Priya");
+
+        System.out.println(map);
+    }
+}
+Output
+{101=Ravi, 102=Priya}
+already the key is 101 is available  that's why its not printing
+
+hashmap
+HashMap is a class in Java that implements the Map interface. It stores data in key-value pairs, does not allow duplicate keys, allows duplicate values, and does not maintain insertion order.
+Why is HashMap used?
+
+We use HashMap when:
+
+We want to store data as Key → Value pairs.
+We need fast searching using a key.
+Keys must be unique.
+We don't care about the insertion order.
+
+Example
+import java.util.HashMap;
+
+public class HashMapMethods {
+    public static void main(String[] args) {
+
+        HashMap<Integer, String> map = new HashMap<>();
+
+        // put()
+        map.put(101, "Ravi");
+        map.put(102, "Priya");
+        map.put(103, "Kumar");
+
+        System.out.println("Map : " + map);
+
+        // get()
+        System.out.println("Get : " + map.get(102));
+
+        // containsKey()
+        System.out.println("Contains Key : " + map.containsKey(101));
+
+        // containsValue()
+        System.out.println("Contains Value : " + map.containsValue("Priya"));
+
+        // size()
+        System.out.println("Size : " + map.size());
+
+        // remove()
+        map.remove(103);
+
+        System.out.println("After Remove : " + map);
+    }
+}
+output
+Map : {101=Ravi, 102=Priya, 103=Kumar}
+Get : Priya
+Contains Key : true
+Contains Value : true
+Size : 3
+After Remove : {101=Ravi, 102=Priya}
+
+Tree map
+TreeMap is a class in Java that implements the Map interface. It stores key-value pairs, does not allow duplicate keys, and automatically sorts the keys in ascending order.
+Why is TreeMap used?
+
+We use TreeMap when:
+
+ We want to store data in Key → Value pairs.
+We want the keys to be automatically sorted.
+We need unique keys.
+We want to retrieve data in sorted order.
+
+sample code
+import java.util.TreeMap;
+
+public class TreeMapMethods {
+    public static void main(String[] args) {
+
+        TreeMap<Integer, String> map = new TreeMap<>();
+
+        map.put(103, "Kumar");
+        map.put(101, "Ravi");
+        map.put(102, "Priya");
+
+        System.out.println("TreeMap : " + map);
+
+        System.out.println("First Key : " + map.firstKey());
+
+        System.out.println("Last Key : " + map.lastKey());
+
+        System.out.println("Higher Key : " + map.higherKey(101));
+
+        System.out.println("Lower Key : " + map.lowerKey(103));
+
+        System.out.println("Contains Key : " + map.containsKey(102));
+
+        System.out.println("Get : " + map.get(101));
+
+        map.remove(102);
+
+        System.out.println("After Remove : " + map);
+
+        System.out.println("Keys : " + map.keySet());
+
+        System.out.println("Values : " + map.values());
+
+        System.out.println("Entry Set : " + map.entrySet());
+    }
+}
+output
+TreeMap : {101=Ravi, 102=Priya, 103=Kumar}
+First Key : 101
+Last Key : 103
+Higher Key : 102
+Lower Key : 102
+Contains Key : true
+Get : Ravi
+After Remove : {101=Ravi, 103=Kumar}
+Keys : [101, 103]
+Values : [Ravi, Kumar]
+Entry Set : [101=Ravi, 103=Kumar]
+Method	Meaning
+put()	Add key-value pair
+get()	Get value using key
+firstKey()	Smallest key
+lastKey()	Largest key
+higherKey()	Next bigger key
+lowerKey()	Previous smaller key
+remove()	Delete a key-value pair
+keySet()	Get only keys
+values()	Get only values
+entrySet()	Get both keys and values
+Linked HashMap
+LinkedHashMap is a class in Java that implements the Map interface. It stores data in key-value pairs, does not allow duplicate keys, allows duplicate values, and maintains the insertion order of elements.
+Why is LinkedHashMap used?
+
+We use LinkedHashMap when:
+
+ We want to store data in Key → Value pairs.
+ We want to maintain the insertion order.
+We need unique keys.
+We want fast searching using keys.
+
+sample program
+import java.util.LinkedHashMap;
+
+public class LinkedHashMapMethods {
+    public static void main(String[] args) {
+
+        LinkedHashMap<Integer, String> map = new LinkedHashMap<>();
+
+        map.put(101, "Ravi");
+        map.put(102, "Priya");
+        map.put(103, "Kumar");
+
+        System.out.println("Map : " + map);
+
+        System.out.println("Get : " + map.get(102));
+
+        System.out.println("Contains Key : " + map.containsKey(101));
+
+        System.out.println("Contains Value : " + map.containsValue("Priya"));
+
+        System.out.println("Size : " + map.size());
+
+        map.replace(103, "Hema");
+        System.out.println("After Replace : " + map);
+
+        map.remove(102);
+        System.out.println("After Remove : " + map);
+
+        System.out.println("Keys : " + map.keySet());
+
+        System.out.println("Values : " + map.values());
+
+        System.out.println("Entry Set : " + map.entrySet());
+    }
+}
+output
+Output
+Map : {101=Ravi, 102=Priya, 103=Kumar}
+Get : Priya
+Contains Key : true
+Contains Value : true
+Size : 3
+After Replace : {101=Ravi, 102=Priya, 103=Hema}
+After Remove : {101=Ravi, 103=Hema}
+Keys : [101, 103]
+Values : [Ravi, Hema]
+Entry Set : [101=Ravi, 103=Hema]
+
+Queue 
+
+Queue is an interface in Java that stores elements in FIFO (First In, First Out) order. It is mainly used when elements need to be processed in the order they are inserted.
+Why is Queue used?
+
+We use Queue when:
+
+ We want to process elements in FIFO order.
+ We want to manage tasks one by one.
+It is used in printing, ticket booking, messaging systems, etc.
+
+Example
+
+Imagine people standing in a ticket counter queue.
+
+Ravi
+Priya
+Kumar
+Ravi came first → Ravi gets the ticket first.
+Priya came second → Priya gets the ticket second.
+Kumar came last → Kumar gets the ticket last.
+
+This is called FIFO (First In, First Out).
+Queue Methods
+Method	Description
+add()	Adds an element.
+offer()	Adds an element (returns false instead of throwing an exception if it fails).
+remove()	Removes the first element.
+poll()	Removes and returns the first element, or null if empty.
+element()	Returns the first element without removing it.
+peek()	Returns the first element without removing it, or null if empty.
+size()	Returns the number of elements.
+isEmpty()	Checks whether the queue is empty.
+import java.util.LinkedList;
+import java.util.Queue;
+
+sample code
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class OfferExample {
+    public static void main(String[] args) {
+
+        Queue<String> queue = new LinkedList<>();
+
+        queue.offer("Ravi");
+        queue.offer("Priya");
+        queue.offer("Kumar");
+
+        System.out.println(queue);
+    }
+}
+output
+ravi ,priya ,kumar
+difference add and offer add insertion failed throw exception offer failed  throw false
+public class QueueExample {
+    public static void main(String[] args) {
+
+        Queue<String> queue = new LinkedList<>();
+
+        queue.add("Ravi");
+        queue.add("Priya");
+        queue.add("Kumar");
+
+        System.out.println(queue);
+
+        System.out.println("First Element : " + queue.peek());
+
+        queue.poll();
+
+        System.out.println("After Poll : " + queue);
+    }
+}
+output
+[Ravi, Priya, Kumar]
+First Element : Ravi
+After Poll : [Priya, Kumar]
+
+priority queue
+PriorityQueue is a class in Java that implements the Queue interface. It stores elements according to their priority (natural sorting order) instead of insertion order.
+Why is PriorityQueue used?
+
+We use PriorityQueue when:
+
+We want elements to be processed based on priority.
+We need automatic sorting.
+ It is used in task scheduling, hospital emergency systems, CPU scheduling, etc.
+
+PriorityQueue Methods
+Method	Description
+add()	Adds an element.
+offer()	Adds an element.
+remove()	Removes the highest-priority element.
+poll()	Removes and returns the highest-priority            element.(remove sthe first element)
+peek()	Returns the highest-priority element          without removing it.(give first element)
+element()	Returns the first element without removing it.
+size()	Returns the number of elements.
+isEmpty()	Checks whether the queue is empty.
+clear()	Removes all elements.
+sample program
+import java.util.PriorityQueue;
+
+public class PriorityQueueExample {
+    public static void main(String[] args) {
+
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+
+        pq.add(50);
+        pq.add(20);
+        pq.add(40);
+        pq.add(10);
+        pq.add(30);
+
+        System.out.println("Queue : " + pq);
+
+        System.out.println("Peek : " + pq.peek());
+
+        System.out.println("Poll : " + pq.poll());
+
+        System.out.println("After Poll : " + pq);
+    }
+}
+output
+Queue : [10, 20, 40, 50, 30]
+Peek : 10
+Poll : 10
+After Poll : [20, 30, 40, 50]
+
+problems
+Remove an Item 
+
+Store 6 fruits.
+Remove "Orange" and print the updated list.Store .
+create student names
+Create a List<String> and:
+
+Add 5 student names.
+Print all names.
+Print total students.
+
+Search an Element 
+Input:
+Apple
+Orange
+Mango
+Banana
+Check whether "Mango" exists using contains().

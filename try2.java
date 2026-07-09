@@ -14,6 +14,5 @@ public class try2 {
             System.out.println("Database Connection Failed.");
 
         }
-
     }
 }
