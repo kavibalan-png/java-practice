@@ -1,0 +1,560 @@
+What is a Linked List?
+
+A Linked List is a linear data structure where each element (node) stores:
+
+Data
+Address (Reference) of the next node
+
+Unlike an array, the elements are not stored next to each other in memory.
+Example
+
+Suppose we want to store:
+
+10 20 30 40
+Array
+Index : 0   1   2   3
+Value :10  20  30  40
+
+All values are stored continuously in memory.
+Why do we use a Linked List?
+
+Imagine you have an array.
+
+10 20 30 40
+
+Now you want to insert 15.
+
+Array becomes
+
+10 15 20 30 40
+
+To do this, you have to move 20, 30, and 40 one position to the right.
+
+This shifting takes O(n) time.
+
+In a Linked List:
+
+10 -> 20 -> 30 -> 40
+
+Insert 15:
+
+10 -> 15 -> 20 -> 30 -> 40
+
+You only change a few pointers (references). No need to shift all elements.
+
+That's why insertion is efficient.
+
+Node creation
+Node Creation is the process of creating a new node in a Linked List. Each node contains two parts: the data field (stores the value) and the next field (stores the reference to the next node). Node creation is used to add data into a Linked List.
+create a node
+class Node {
+
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+Example
+
+Node n1 = new Node(10);
+
+Java internally
+
+Data = 10
+
+Next = NULL
+
+
+
+
+Node n1 = new Node(10);
+Node n2 = new Node(20);
+Node n3 = new Node(30);
+
+
+Linked list traversal
+
+class Node {
+
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class LinkedListTraversal {
+
+    public static void main(String[] args) {
+
+        Node head = new Node(10);
+        head.next = new Node(20);
+        head.next.next = new Node(30);
+        head.next.next.next = new Node(40);
+
+        Node temp = head;
+
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+    }
+}
+Create Linked List
+
+Node head = new Node(10);
+
+head.next = new Node(20);
+
+head.next.next = new Node(30);
+
+head.next.next.next = new Node(40);
+
+Memory
+
+head
+ ↓
+10 → 20 → 30 → 40 → NULL
+
+
+
+
+
+Why Traversal is used?
+
+
+Traversal use pannuvom:
+
+ Print all elements
+ Search a value
+ Count number of nodes
+ Find maximum/minimum
+ Insert at end
+ Delete a node
+ Reverse a linked list
+
+Almost every Linked List problem starts with Traversal.
+Traversal
+
+Node temp = head;  // point the first value
+
+while (temp != null) { value null aagura varigum 
+
+    System.out.println(temp.data);
+
+    temp = temp.next;  next address gu move agum
+}
+
+
+
+Insert at Beginning
+
+Node newNode = new Node(5);
+
+newNode.next = head;
+
+head = newNode;
+
+
+INsert at end
+Node temp = head;
+
+while(temp.next != null){
+
+    temp = temp.next;
+
+}
+
+temp.next = new Node(40);
+
+Insert at Middle
+Node temp = head;
+
+while(temp.data != 20){
+
+    temp = temp.next;
+
+}
+
+Node newNode = new Node(30);
+
+newNode.next = temp.next;
+
+temp.next = newNode;
+Delete Node
+Node temp = head;
+
+while (temp.next.data != 30) {
+    temp = temp.next;
+}
+
+temp.next = temp.next.next;
+
+
+
+
+Problems
+
+Reverse Linked List
+
+Node next = current.next;   // Save next node
+current.next = prev;        // Reverse the arrow
+prev = current;             // Move prev forward
+current = next;             // Move current forward
+
+class Node {
+
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class ReverseLinkedList {
+
+    public static void main(String[] args) {
+
+        // Create Linked List
+        Node head = new Node(10);
+        head.next = new Node(20);
+        head.next.next = new Node(30);
+        head.next.next.next = new Node(40);
+
+        System.out.println("Before Reverse:");
+
+        printList(head);
+
+        // Reverse
+        head = reverse(head);
+
+        System.out.println("After Reverse:");
+
+        printList(head);
+    }
+
+    public static Node reverse(Node head) {
+
+        Node prev = null;
+        Node current = head;  //point first node 
+        while (current != null) {  
+            Node next = current.next;   10 = 20  address save   20next 30
+            current.next = prev;  10 =  null  20=>10  
+
+   prev
+     ↓
+ 10 → NULL
+            prev = current;  prev =10  prev 20
+
+            current = next;   next move  20  current next node is a 30
+        }
+
+        return prev;     40=>30>20>10
+    }
+
+    public static void printList(Node head) {
+
+        Node temp = head;
+
+        while (temp != null) {
+
+            System.out.print(temp.data + " ");
+
+            temp = temp.next;
+        }
+
+        System.out.println();
+    }
+}
+
+
+
+
+Merge Two sorted list
+
+class ListNode {
+
+    int data;
+    ListNode next;
+
+    ListNode(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class MergeTwoLists {
+
+    public static ListNode merge(ListNode l1, ListNode l2) {
+
+        // Dummy node create
+        ListNode dummy = new ListNode(0);
+
+        // Current points to dummy
+        ListNode current = dummy;
+
+        // Compare both lists
+        while (l1 != null && l2 != null) {
+
+            if (l1.data <= l2.data) {
+
+                current.next = l1;
+                l1 = l1.next;
+
+            } else {
+
+                current.next = l2;
+                l2 = l2.next;
+
+            }
+
+            current = current.next;
+        }
+
+        // Remaining nodes
+        if (l1 != null) {
+            current.next = l1;
+        }
+
+        if (l2 != null) {
+            current.next = l2;
+        }
+
+        return dummy.next;
+    }
+
+    // Print Linked List
+    public static void print(ListNode head) {
+
+        while (head != null) {
+            System.out.print(head.data + " ");
+            head = head.next;
+        }
+
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+
+        // First List
+        ListNode l1 = new ListNode(10);
+        l1.next = new ListNode(20);
+        l1.next.next = new ListNode(40);
+
+        // Second List
+        ListNode l2 = new ListNode(15);
+        l2.next = new ListNode(30);
+        l2.next.next = new ListNode(50);
+
+        System.out.println("First List");10,20,40
+        print(l1);
+
+        System.out.println("Second List");1530,50
+        print(l2);
+
+        ListNode result = merge(l1, l2);
+
+        System.out.println("Merged List");
+        print(result);
+    }
+}
+
+
+
+Middle of the Linked List
+
+class ListNode {
+
+    int data;
+    ListNode next;
+
+    ListNode(int data) {
+        this.data = data;
+    }
+}
+
+public class MiddleOfLinkedList {
+
+    public static ListNode middleNode(ListNode head) {
+
+        ListNode slow = head;
+        ListNode fast = head;  both are are stre first 
+
+        while (fast != null && fast.next != null) {
+
+            slow = slow.next;  1->2     first  slow 2  ->3
+            fast = fast.next.next; 1->->3  fast 3 ->->5
+        }
+
+        return slow;
+    }
+
+    public static void main(String[] args) {
+
+        ListNode head = new ListNode(1);
+
+        head.next = new ListNode(2);
+        head.next.next = new ListNode(3);
+        head.next.next.next = new ListNode(4);
+        head.next.next.next.next = new ListNode(5);
+
+        ListNode middle = middleNode(head);
+
+        System.out.println("Middle Node = " + middle.data);
+    }
+}
+
+
+Linked List Cycle
+class ListNode {
+    int data;
+    ListNode next;
+
+    ListNode(int data) {
+        this.data = data;
+    }
+}
+
+public class LinkedListCycle {
+
+    public static boolean hasCycle(ListNode head) {
+
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast != null && fast.next != null) {
+
+            slow = slow.next;          // Move 1 step
+            fast = fast.next.next;     // Move 2 steps
+
+            if (slow == fast) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static void main(String[] args) {
+
+        ListNode head = new ListNode(1);
+        head.next = new ListNode(2);
+        head.next.next = new ListNode(3);
+        head.next.next.next = new ListNode(4);
+
+        // Create cycle
+        head.next.next.next.next = head.next;
+
+        System.out.println(hasCycle(head));
+    }
+}
+
+
+Remove Linked list
+
+class ListNode {
+
+    int data;
+    ListNode next;
+
+    ListNode(int data) {
+        this.data = data;
+    }
+}
+
+public class RemoveLinkedListElements {
+
+    public static ListNode removeElements(ListNode head, int val) {
+
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+
+        ListNode current = dummy;1263456
+
+        while (current.next != null) {
+
+            if (current.next.data == val) {
+
+                current.next = current.next.next;
+
+            } else {
+
+                current = current.next; 1263456
+            }
+        }
+
+        return dummy.next;
+    }
+
+    public static void main(String[] args) {
+
+        ListNode head = new ListNode(1);
+        head.next = new ListNode(2);
+        head.next.next = new ListNode(6);
+        head.next.next.next = new ListNode(3);
+        head.next.next.next.next = new ListNode(4);
+        head.next.next.next.next.next = new ListNode(5);
+        head.next.next.next.next.next.next = new ListNode(6);
+
+        head = removeElements(head, 6);
+
+        while (head != null) {
+            System.out.print(head.data + " ");
+            head = head.next;
+        }
+    }
+}
+
+
+Delete the node
+class ListNode {
+
+    int data;
+    ListNode next;
+
+    ListNode(int data) {
+        this.data = data;
+    }
+}
+
+public class DeleteNodeLinkedList {
+
+    public static void deleteNode(ListNode node) {
+
+        node.data = node.next.data;
+
+        node.next = node.next.next;
+    }
+
+    public static void main(String[] args) {
+
+        ListNode head = new ListNode(4);
+        head.next = new ListNode(5);
+        head.next.next = new ListNode(1);
+        head.next.next.next = new ListNode(9);
+
+        // Delete node with value 5
+        deleteNode(head.next);
+
+        ListNode temp = head;
+
+        while (temp != null) {
+
+            System.out.print(temp.data + " ");
+
+            temp = temp.next;
+        }
+    }
+}
+
+
+stack &queue
+

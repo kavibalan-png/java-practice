@@ -1,0 +1,422 @@
+Dynamic Programming (DP) is a technique used to solve problems by breaking them into smaller subproblems, solving each subproblem only once, and storing the result so we don't calculate it again.
+
+Main idea: Don't repeat the same work.
+
+Why do we use DP?
+
+Suppose you are solving a problem.
+
+Without DP:
+
+Same calculation happens again and again.
+Program becomes slow.
+
+With DP:
+
+Calculate once.
+Store the answer.
+Reuse whenever needed.
+
+So,
+
+Reduces Time Complexity
+Avoids repeated calculations
+Makes exponential solutions become polynomial
+
+
+Normal Recursion (Without DP)
+public class FibonacciRecursion {
+
+    public static int fib(int n) {
+
+        // Base Case
+        if (n <= 1) {
+            return n;
+        }
+
+        // Recursive Calls
+        return fib(n - 1) + fib(n - 2);
+    }
+
+    public static void main(String[] args) {
+
+        int n = 5;
+
+        System.out.println(fib(n));
+    }
+}
+Output
+5
+Step-by-Step Execution
+
+Suppose
+
+fib(5)
+
+calls
+
+fib(5)
+
+= fib(4) + fib(3)
+
+fib(4)
+
+= fib(3) + fib(2)
+
+fib(3)
+
+= fib(2) + fib(1)
+
+fib(2)
+
+= fib(1) + fib(0)
+
+Tree:
+
+                 fib(5)
+               /        \
+          fib(4)       fib(3)
+          /    \       /    \
+     fib(3) fib(2) fib(2) fib(1)
+      /  \
+ fib(2) fib(1)
+
+Observe:
+
+fib(3) → 2 times
+
+fib(2) → 3 times
+
+fib(1) → many times
+
+Same calculation repeated.
+
+Time Complexity:
+
+O(2^n)
+
+
+program
+
+Memoization
+
+import java.util.Arrays;
+
+public class FibonacciDP {
+
+    static int[] dp;
+
+    public static int fib(int n) {
+
+        // Base Case
+        if (n <= 1) {
+            return n;
+        }
+
+        // Already Calculated
+        if (dp[n] != -1) {
+            return dp[n];
+        }
+
+        // Calculate and Store
+        dp[n] = fib(n - 1) + fib(n - 2);
+
+        return dp[n];
+    }
+
+    public static void main(String[] args) {
+
+        int n = 5;
+
+        dp = new int[n + 1];
+
+        Arrays.fill(dp, -1);
+
+        System.out.println(fib(n));
+    }
+}
+
+
+tabulation 
+
+
+public class FibonacciTabulation {
+
+    public static int fib(int n) {
+
+        // Base Case
+        if (n <= 1) {
+            return n;
+        }
+
+        // DP Array
+        int[] dp = new int[n + 1];
+
+        // Store Base Cases
+        dp[0] = 0;
+        dp[1] = 1;
+
+        // Fill Remaining Values
+        for (int i = 2; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+
+        return dp[n];
+    }
+
+    public static void main(String[] args) {
+
+        int n = 5;
+
+        System.out.println(fib(n));
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+space optimization
+
+
+public class FibonacciSpaceOptimization {
+
+    public static int fib(int n) {
+
+        // Base Case
+        if (n <= 1) {
+            return n;
+        }
+
+        int prev2 = 0;
+        int prev1 = 1;
+
+        for (int i = 2; i <= n; i++) {
+
+            int current = prev1 + prev2;
+
+            prev2 = prev1;
+            prev1 = current;
+        }
+
+        return prev1;
+    }
+
+    public static void main(String[] args) {
+
+        int n = 5;
+
+        System.out.println(fib(n));
+    }
+}
+
+
+
+
+
+house robber
+
+
+
+
+
+
+memoization code
+import java.util.Arrays;
+public class HouseRobberMemoization {
+    public static int rob(int index, int[] nums, int[] dp) {
+        // Base Case
+        if (index == 0) {
+            return nums[0];
+        }
+        if (index < 0) {
+            return 0;
+        }
+        // Already Calculated
+        if (dp[index] != -1) {
+            return dp[index];
+        }
+        // Pick Current House
+        int pick = nums[index] + rob(index - 2, nums, dp);
+        // Skip Current House
+        int notPick = rob(index - 1, nums, dp);
+        // Store Answer
+        dp[index] = Math.max(pick, notPick);
+        return dp[index];
+    }
+    public static void main(String[] args) {
+        int[] nums = {2, 7, 9, 3, 1};
+        int n = nums.length;
+        int[] dp = new int[n];
+        Arrays.fill(dp, -1);
+        System.out.println(rob(n - 1, nums, dp));
+    }
+}
+
+Tabulationn code
+
+public class Solution {
+
+    public int rob(int[] nums) {
+
+        int n = nums.length;
+
+        // If there is only one house
+        if (n == 1) {
+            return nums[0];
+        }
+
+        // DP Array
+        int[] dp = new int[n];
+
+        // Base Cases
+        dp[0] = nums[0];
+        dp[1] = Math.max(nums[0], nums[1]);
+
+        // Fill DP Array
+        for (int i = 2; i < n; i++) {
+
+            int pick = nums[i] + dp[i - 2];
+
+            int notPick = dp[i - 1];
+
+            dp[i] = Math.max(pick, notPick);
+        }
+
+        return dp[n - 1];
+    }
+
+    public static void main(String[] args) {
+
+        Solution obj = new Solution();
+
+        int[] nums = {2, 7, 9, 3, 1};
+
+        System.out.println(obj.rob(nums));
+    }
+}
+
+
+space optimization
+public class HouseRobberSpaceOptimization {
+
+    public static int rob(int[] nums) {
+
+        int n = nums.length;
+
+        if (n == 1) {
+            return nums[0];
+        }
+
+        int prev2 = nums[0];
+        int prev1 = Math.max(nums[0], nums[1]);
+
+        for (int i = 2; i < n; i++) {
+
+            int current = Math.max(prev1, nums[i] + prev2);
+
+            prev2 = prev1;
+            prev1 = current;
+        }
+
+        return prev1;
+    }
+
+    public static void main(String[] args) {
+
+        int[] nums = {2, 7, 9, 3, 1};
+
+        System.out.println(rob(nums));
+    }
+}
+
+climbing stairs
+
+public class ClimbingStairs {
+
+   int [] dp =new int [n+1];
+dp[0]=1;
+dp[1]=1;
+for(int i=2;i<=n;i++){
+dp [i]=dp [i-1]+dp[i-2];
+}
+return dp[n]
+}
+
+tabulation
+public class ClimbingStairs {
+
+    public static int climbStairs(int n) {
+
+        // Base Cases
+        if (n <= 1) {
+            return 1;
+        }
+
+        // DP Array
+        int[] dp = new int[n + 1];
+
+        // Initialize
+        dp[0] = 1;
+        dp[1] = 1;
+
+        // Fill DP Array
+        for (int i = 2; i <= n; i++) {
+
+            dp[i] = dp[i - 1] + dp[i - 2];
+
+        }
+
+        return dp[n];
+    }
+
+    public static void main(String[] args) {
+
+        int n = 5;
+
+        System.out.println(climbStairs(n));
+
+    }
+}
+memoiztaion
+
+public class ClimbingStairs {
+
+    public static int climbStairs(int n) {
+
+        // Base Cases
+        if (n <= 1) {
+            return 1;
+        }
+
+        // DP Array
+        int[] dp = new int[n + 1];
+
+        // Initialize
+        dp[0] = 1;
+        dp[1] = 1;
+
+        // Fill DP Array
+        for (int i = 2; i <= n; i++) {
+
+            dp[i] = dp[i - 1] + dp[i - 2];
+
+        }
+
+        return dp[n];
+    }
+
+    public static void main(String[] args) {
+
+        int n = 5;
+
+        System.out.println(climbStairs(n));
+
+    }
+}

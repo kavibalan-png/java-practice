@@ -1,4 +1,4 @@
-public class  {
+public class try4 {
     public static void main(String[] args) {
         try {
             String name = null;

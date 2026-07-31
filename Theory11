@@ -1,0 +1,1390 @@
+Comparable interface
+The Comparable Interface in Java is used to define the natural sorting order of objects.
+For example, if you want to sort Student objects by their id, name, or marks, you use the Comparable interface.
+Syntax
+public class Student implements Comparable<Student> {
+    @Override
+    public int compareTo(Student s) {
+        // comparison logic
+    }
+}
+Why do we use Comparable?
+Normally, Java knows how to sort primitive wrapper classes like:
+Integer
+String
+Double
+Character
+Example:
+import java.util.*;
+class Student {
+    int id;
+    String name;
+    Student(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+    @Override
+    public String toString() {
+        return id + " " + name;
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        ArrayList<Student> list = new ArrayList<>();
+
+        list.add(new Student(103, "Ravi"));
+        list.add(new Student(101, "Priya"));
+        list.add(new Student(102, "Kumar"));
+
+        System.out.println(list);
+    }
+}
+output
+[103 Ravi, 101 Priya, 102 Kumar]
+now it will be sorted using a collection
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<Student> list = new ArrayList<>();
+        list.add(new Student(103, "Ravi"));
+        list.add(new Student(101, "Priya"));
+        list.add(new Student(102, "Kumar"));
+        Collections.sort(list);   // ❌ Error
+        System.out.println(list);
+    }
+}
+Error
+The method sort(List<T>) is not applicable for the arguments (ArrayList<Student>)
+import java.util.*;
+class Student implements Comparable<Student> {
+    int id;
+    String name;
+    // Constructor
+    Student(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+    // Comparable method
+    @Override
+    public int compareTo(Student s) {
+        return this.id - s.id;   // Sort by ID
+    }
+    // Print object in readable format
+    @Override
+    public String toString() {
+        return id + " " + name;
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<Student> list = new ArrayList<>();
+        list.add(new Student(103, "Ravi"));
+        list.add(new Student(101, "Priya"));
+        list.add(new Student(102, "Kumar"));
+        System.out.println("Before Sorting:");
+        System.out.println(list);
+        Collections.sort(list);
+        System.out.println("After Sorting:");
+        System.out.println(list);
+    }
+}
+Output
+Before Sorting:
+[103 Ravi, 101 Priya, 102 Kumar]
+After Sorting:
+[101 Priya, 102 Kumar, 103 Ravi]
+find the ascii value
+public class Main {
+
+    public static void main(String[] args) {
+
+        System.out.println((int)'H');
+        System.out.println((int)'e');
+        System.out.println((int)'m');
+        System.out.println((int)'a');
+    }
+}
+Output
+72
+101
+109
+97
+
+names
+import java.util.*;
+
+class Student implements Comparable<Student> {
+
+    int id;
+    String name;
+
+    Student(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    @Override
+    public int compareTo(Student s) {
+        return this.name.compareTo(s.name);
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + name;
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        ArrayList<Student> list = new ArrayList<>();
+
+        list.add(new Student(103, "Ravi"));
+        list.add(new Student(101, "Priya"));
+        list.add(new Student(102, "Kumar"));
+
+        System.out.println("Before Sorting:");
+        System.out.println(list);
+
+        Collections.sort(list);
+
+        System.out.println("After Sorting:");
+        System.out.println(list);
+    }
+}
+Output
+Before Sorting:
+[103 Ravi, 101 Priya, 102 Kumar]
+
+After Sorting:
+[102 Kumar, 101 Priya, 103 Ravi]
+
+Comparator Interface
+Comparator is an interface used to define custom sorting.
+Syntax
+class NameComparator implements Comparator<Student> {
+
+    @Override
+    public int compare(Student s1, Student s2) {
+
+        return s1.name.compareTo(s2.name);
+    }
+}
+
+Step 1: Student Class
+import java.util.*;
+
+class Student {
+
+    int id;
+    String name;
+    int marks;
+
+    Student(int id, String name, int marks) {
+        this.id = id;
+        this.name = name;
+        this.marks = marks;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + name + " " + marks;
+    }
+}
+Step 2: ID Comparator
+class IdComparator implements Comparator<Student> {
+
+    @Override
+    public int compare(Student s1, Student s2) {
+        return s1.id - s2.id;
+    }
+}
+
+Step 3: Name Comparator
+class NameComparator implements Comparator<Student> {
+
+    @Override
+    public int compare(Student s1, Student s2) {
+
+        return s1.name.compareTo(s2.name);
+    }
+}
+
+Step 4: Marks Comparator
+class MarksComparator implements Comparator<Student> {
+
+    @Override
+    public int compare(Student s1, Student s2) {
+
+        return s1.marks - s2.marks;
+    }
+}
+
+Java compare pannum
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        ArrayList<Student> list = new ArrayList<>();
+
+        list.add(new Student(103, "Ravi", 80));
+        list.add(new Student(101, "Priya", 90));
+        list.add(new Student(102, "Kumar", 70));
+
+        System.out.println("Original List");
+        System.out.println(list);
+
+        Collections.sort(list, new IdComparator());
+
+        System.out.println("\nSort By ID");
+        System.out.println(list);
+
+        Collections.sort(list, new NameComparator());
+
+        System.out.println("\nSort By Name");
+        System.out.println(list);
+
+        Collections.sort(list, new MarksComparator());
+
+        System.out.println("\nSort By Marks");
+        System.out.println(list);
+
+    }
+}
+Output
+Original List
+
+103 Ravi 80
+101 Priya 90
+102 Kumar 70
+
+Sort By ID
+
+101 Priya 90
+102 Kumar 70
+103 Ravi 80
+
+Sort By Name
+
+102 Kumar 70
+101 Priya 90
+103 Ravi 80
+
+Sort By Marks
+
+102 Kumar 70
+103 Ravi 80
+101 Priya 90
+
+
+
+Java 8
+ava 8 is the 8th version of Java, released in 2014.
+
+Before Java 8, Java programs were more lengthy (boilerplate code).
+
+Java 8 introduced new features to make code:
+
+=> Shorter
+=>Easier to read
+=> Easier to write
+=>Better performance for many tasks
+
+Why Java 8 is used?
+
+Suppose you want to sort students.
+
+Before Java 8
+
+You create a separate comparator class.
+
+class NameComparator implements Comparator<Student> {
+
+    @Override
+    public int compare(Student s1, Student s2) {
+        return s1.name.compareTo(s2.name);
+    }
+}
+
+Then
+
+Collections.sort(list, new NameComparator());
+
+More code.
+
+After Java 8
+
+Using a Lambda Expression:
+
+Collections.sort(list, (s1, s2) -> s1.name.compareTo(s2.name));
+
+ Same work.
+
+ Less code.
+
+Runnable r = new Runnable() {
+
+    @Override
+    public void run() {
+        System.out.println("Hello");
+    }
+};
+
+Very lengthy.
+
+Java 8
+Runnable r = () -> System.out.println("Hello");
+
+Only one line.
+
+Important Features of Java 8
+1. Lambda Expression 
+
+Used to reduce code.
+
+Example:
+
+(a, b) -> a + b
+2. Stream API 
+
+Used for filtering, sorting, counting, mapping collections easily.
+
+Example:
+
+list.stream()
+    .filter(x -> x > 10)
+    .forEach(System.out::println);
+3. Method Reference
+
+Instead of
+
+list.forEach(x -> System.out.println(x));
+
+Write
+
+list.forEach(System.out::println);
+4. Functional Interface
+
+Interface with only one abstract method.
+
+Example:
+
+@FunctionalInterface
+interface Test {
+    void display();
+}
+5. Default Methods
+
+Interfaces can now have implemented methods.
+
+interface Demo {
+
+    default void show() {
+        System.out.println("Hello");
+    }
+}
+6. Optional Class
+
+Helps avoid NullPointerException.
+
+7. Date and Time API
+
+New classes like:
+
+LocalDate
+LocalTime
+LocalDateTime
+
+
+Lamda expression
+
+same work but less code
+
+sample code
+import java.util.*;
+
+class Student {
+
+    int id;
+    String name;
+
+    Student(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public String toString() {
+        return id + " " + name;
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        ArrayList<Student> list = new ArrayList<>();
+
+        list.add(new Student(103,"Ravi"));
+        list.add(new Student(101,"Priya"));
+        list.add(new Student(102,"Kumar"));
+
+        Collections.sort(list,
+                (s1, s2) -> s1.name.compareTo(s2.name));
+
+        System.out.println(list);
+    }}
+Output
+[102 Kumar, 101 Priya, 103 Ravi]
+
+program
+import java.util.*;
+class Student {
+
+    int id;
+    String name;
+    int marks;
+
+    Student(int id, String name, int marks) {
+        this.id = id;
+        this.name = name;
+        this.marks = marks;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + name + " " + marks;
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        ArrayList<Student> list = new ArrayList<>();
+
+        list.add(new Student(103, "Ravi", 80));
+        list.add(new Student(101, "Priya", 90));
+        list.add(new Student(102, "Kumar", 70));
+
+        // Sort by ID
+        Collections.sort(list,
+                (s1, s2) -> s1.id - s2.id);
+
+        System.out.println("Sort By ID");
+        System.out.println(list);
+
+        // Sort by Name
+        Collections.sort(list,
+                (s1, s2) -> s1.name.compareTo(s2.name));
+
+        System.out.println("\nSort By Name");
+        System.out.println(list);
+
+        // Sort by Marks
+        Collections.sort(list,
+                (s1, s2) -> s1.marks - s2.marks);
+
+        System.out.println("\nSort By Marks");
+        System.out.println(list);
+    }
+}
+Output
+Sort By ID
+[101 Priya 90, 102 Kumar 70, 103 Ravi 80]
+
+Sort By Name
+[102 Kumar 70, 101 Priya 90, 103 Ravi 80]
+
+Sort By Marks
+[102 Kumar 70, 103 Ravi 80, 101 Priya 90]
+
+
+lamda uses for the 
+lambda use panna mudiyum:
+
+Comparator
+Runnable
+Callable
+ ActionListener
+Predicate
+Consumer
+Supplier
+Function
+
+Example 2: Runnable (Thread)
+
+Without Lambda
+
+Runnable r = new Runnable() {
+
+    @Override
+    public void run() {
+        System.out.println("Hello");
+    }
+};
+
+With Lambda
+
+Runnable r = () -> System.out.println("Hello");
+Example 3: Functional Interface
+interface Demo {
+
+    void show();
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Demo d = () -> System.out.println("Hello");
+
+        d.show();
+    }
+}
+Output
+
+Hello
+
+functional interface
+
+A Functional Interface is an interface that contains only one abstract method.
+@FunctionalInterface
+interface Demo {
+
+    // Abstract Method
+    void show();
+
+    // Default Method
+    default void display() {
+        System.out.println("Display Method");
+    }
+
+    // Static Method
+    static void test() {
+        System.out.println("Static Method");
+    }
+}
+public class Main {
+
+    public static void main(String[] args) {
+
+        // Lambda Expression
+        Demo d = () -> System.out.println("Hello from show()");
+
+        // Abstract Method
+        d.show();
+
+        // Default Method
+        d.display();
+
+        // Static Method
+        Demo.test();
+    }
+}
+Output
+Hello from show()
+Display Method
+Static Method
+Method reference
+Without Method Reference
+
+import java.util.*;
+
+public class Demo {
+
+    public static void main(String[] args) {
+
+        List<Integer> list = Arrays.asList(10,20,30);
+
+        list.forEach(x -> System.out.println(x));
+
+    }
+
+}
+
+Output
+
+10
+20
+30
+Method Reference
+Without Method Reference
+
+import java.util.*;
+
+public class Demo {
+
+    public static void main(String[] args) {
+
+        List<Integer> list = Arrays.asList(10,20,30);
+
+        list.forEach(x -> System.out.println(x));
+
+    }
+
+}
+
+Output
+
+10
+20
+30
+Method Reference
+Without Method Reference
+
+import java.util.*;
+
+public class Demo {
+
+    public static void main(String[] args) {
+
+        List<Integer> list = Arrays.asList(10,20,30);
+
+        list.forEach(x -> System.out.println(x));
+
+    }
+
+}
+
+Output
+
+10
+20
+30
+Method Reference
+Method Reference is a shorter way to call an existing method using :: operator.
+Without Method Reference
+list.forEach(x -> System.out.println(x));
+With Method Reference
+list.forEach(System.out::println);
+:: is called the Method Reference Operator.
+Syntax
+
+ClassName::methodName
+
+or
+
+objectName::methodName
+
+without method reference
+import java.util.*;
+
+public class Demo {
+
+    public static void main(String[] args) {
+
+        List<Integer> list = Arrays.asList(10,20,30);
+
+        list.forEach(x -> System.out.println(x));
+
+    }
+
+}
+import java.util.*;
+
+public class Demo {
+
+    public static void main(String[] args) {
+
+        List<Integer> list = Arrays.asList(10,20,30);
+
+        list.forEach(System.out::println);
+
+    }
+
+}
+
+Output
+
+10
+20
+30
+
+        list.forEach(System.out::println);
+
+    }
+
+}
+
+Output
+
+10
+20
+30
+
+
+Stream Api
+Stream API is a Java 8 feature used to process collections (like ArrayList, List, Set) in a simple and efficient way.
+Intermediate Operations
+filter()
+map()
+sorted()
+distinct()
+limit()
+skip()
+
+Example
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        List<Integer> list = Arrays.asList(10,20,30,40,50);
+
+        list.stream()
+            .filter(n -> n > 20);
+    }
+}
+Output
+No Output
+Why?
+Because
+.filter()
+is only an Intermediate Operation.
+It prepares the stream but doesn't execute it.
+Terminal Operation
+Terminal operation starts the execution of the stream and produces the final result.
+Terminal Methods
+forEach()
+collect()
+count()
+reduce()
+findFirst()
+findAny()
+min()
+max()
+filter()	Condition apply 
+map()	Value change 
+sorted()	Sort 
+count()	Count 
+limit()	First n values 
+distinct()	Duplicate remove 
+forEach()	Print or process 
+Stream API Operations
+Stream API-la 2 types of operations irukku.
+Stream API
+     │
+     ├── Intermediate Operations
+     │
+     └── Terminal Operations
+
+1. filter() – Condition Apply
+Use: Condition satisfy panna values mattum edukkum.
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        List<Integer> list = Arrays.asList(10, 20, 30, 40, 50);
+        list.stream()
+            .filter(n -> n > 30)
+            .forEach(System.out::println);
+    }
+}
+Output
+40
+50
+2. map() – Value Change
+Use: Existing value-a vera value-a maathum.
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
+        list.stream()
+            .map(n -> n * 2)
+            .forEach(System.out::println);
+    }
+}
+Output
+2
+4
+6
+8
+10
+
+1 → 2
+
+2 → 4
+
+3 → 6
+
+4 → 8
+
+5 → 10
+3. sorted() – Sort
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        List<Integer> list = Arrays.asList(50, 10, 30, 20, 40);
+
+        list.stream()
+            .sorted()
+            .forEach(System.out::println);
+    }
+}
+Output
+10
+20
+30
+40
+50
+Before
+
+50
+10
+30
+20
+40
+
+↓
+
+After
+
+10
+20
+30
+40
+50
+4. count() – Count Elements
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        List<Integer> list = Arrays.asList(10, 20, 30, 40, 50);
+
+        long total = list.stream()
+                         .count();
+
+        System.out.println(total);
+    }
+}
+Output
+5
+
+5. limit() – First N Values
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        List<Integer> list = Arrays.asList(10,20,30,40,50);
+
+        list.stream()
+            .limit(3)
+            .forEach(System.out::println);
+    }
+}
+Output
+10
+20
+30
+
+6. distinct() – Remove Duplicates
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        List<Integer> list = Arrays.asList(10,20,20,30,30,40,50);
+
+        list.stream()
+            .distinct()
+            .forEach(System.out::println);
+    }
+}
+Output
+10
+20
+30
+40
+50
+
+7. forEach() – Print Each Element
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        List<String> list = Arrays.asList("Ravi","Priya","Kumar");
+
+        list.stream()
+            .forEach(System.out::println);
+    }
+}
+Output
+Ravi
+Priya
+Kumar
+
+example
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        List<Integer> list = Arrays.asList(10,20,30,40,40,50,60);
+
+        list.stream()
+            .filter(n -> n > 20)
+            .distinct()
+            .sorted()
+            .limit(3)
+            .forEach(System.out::println);
+    }
+}
+Output
+30
+40
+50
+without stream import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        List<Integer> list = Arrays.asList(1,2,3,4);
+
+        for(int n : list){
+
+            System.out.println(n * 2);
+
+        }
+
+    }
+
+}
+
+collect() - Store Result into New List
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        List<Integer> list = Arrays.asList(10,20,30,40,50);
+
+        List<Integer> result = list.stream()
+                                   .filter(n -> n > 20)
+                                   .collect(Collectors.toList());
+
+        System.out.println(result);
+    }
+}
+Output
+[30, 40, 50]
+Tanglish
+Original List
+
+10
+20
+30
+40
+50
+
+↓
+
+filter(n > 20)
+
+↓
+
+collect()
+
+↓
+
+New List
+
+30
+40
+50
+
+collect() save a new list
+3. count() - Count Elements
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        List<Integer> list = Arrays.asList(10,20,30,40,50);
+
+        long count = list.stream()
+                         .filter(n -> n > 20)
+                         .count();
+
+        System.out.println(count);
+    }
+}
+Output
+3
+
+30
+40
+50
+
+↓
+
+Total = 3
+4. reduce() - Sum All Elements
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        List<Integer> list = Arrays.asList(10,20,30,40);
+
+        int sum = list.stream()
+                      .reduce(0, (a,b) -> a + b);
+
+        System.out.println(sum);
+    }
+}
+Output
+100
+
+0 + 10 = 10
+
+10 + 20 = 30
+
+30 + 30 = 60
+
+60 + 40 = 100
+
+reduce() compare all values
+
+5. findFirst() - First Element
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        List<Integer> list = Arrays.asList(50,40,30,20);
+
+        Optional<Integer> first = list.stream()
+                                      .findFirst();
+
+        System.out.println(first.get());
+    }
+}
+Output
+50
+
+6. findAny()
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        List<Integer> list = Arrays.asList(50,40,30,20);
+
+        Optional<Integer> value = list.stream()
+                                      .findAny();
+
+        System.out.println(value.get());
+    }
+}
+Output
+50
+
+
+
+
+7. min() - Minimum Value
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        List<Integer> list = Arrays.asList(50,10,40,20);
+
+        Optional<Integer> min = list.stream()
+                                    .min(Integer::compare);
+
+        System.out.println(min.get());
+    }
+}
+Output
+10
+
+50
+
+10
+
+40
+
+20
+
+↓
+
+Smallest
+
+↓
+
+10
+8. max() - Maximum Value
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        List<Integer> list = Arrays.asList(50,10,40,20);
+
+        Optional<Integer> max = list.stream()
+                                    .max(Integer::compare);
+
+        System.out.println(max.get());
+    }
+}
+Output
+50
+
+Intermediate Operations	Terminal Operations
+filter()	forEach()
+map()	collect()
+sorted()	count()
+distinct()	findFirst()
+limit()	min()
+skip()	max()
+	reduce()
+
+
+
+
+Optional class 
+Optional is a container object introduced in Java 8 that may contain a non-null value or may be empty. It is mainly used to avoid NullPointerException and write cleaner code.
+Method	Purpose
+of(value)	Creates an Optional with a non-null value
+ofNullable(value)	Accepts both null and non-null values
+empty()	Creates an empty Optional
+isPresent()	Checks if a value exists
+get()	Returns the value (throws if empty)
+orElse(default)	Returns the value or a default
+orElseThrow()	Throws an exception if empty
+ifPresent()	Executes code if a value is present
+Why was Optional introduced?
+
+Before Java 8, suppose we have:
+
+String name = null;
+
+System.out.println(name.length());
+Output
+Exception in thread "main" java.lang.NullPointerException
+Example
+
+Imagine a gift box 🎁.
+
+Box contains a gift
++------------+
+|  Chocolate |
++------------+
+
+Optional = Box
+
+Value = Chocolate
+
+Empty Box
++------------+
+|   Empty    |
++------------+
+
+No error.
+
+Just empty.
+
+Syntax
+Optional<DataType> variable = Optional.method();
+Optional<String> name = Optional.of("Java");
+Optional.of()
+
+Used when the value is definitely not null.
+
+import java.util.Optional;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Optional<String> name = Optional.of("Java");
+
+        System.out.println(name);
+
+    }
+
+}
+Output
+Optional[Java]
+What happens if null?
+Optional<String> name = Optional.of(null);
+
+Output
+
+NullPointerException
+Why?
+
+of() expects a non-null value.
+Optional.ofNullable()
+
+This accepts both null and non-null values.
+
+import java.util.Optional;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Optional<String> name = Optional.ofNullable(null);
+
+        System.out.println(name);
+
+    }
+
+}
+
+Output
+
+Optional.empty
+Non-null Example
+Optional<String> name = Optional.ofNullable("Java");
+
+Output
+
+Optional[Java]
+isPresent()
+
+Checks whether a value exists.
+
+import java.util.Optional;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Optional<String> name = Optional.of("Java");
+
+        System.out.println(name.isPresent());
+
+    }
+
+}
+
+Output
+
+true
+Null Example
+Optional<String> name = Optional.ofNullable(null);
+
+System.out.println(name.isPresent());
+
+Output
+
+false
+get()
+
+Returns the value.
+
+import java.util.Optional;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Optional<String> name = Optional.of("Java");
+
+        System.out.println(name.get());
+
+    }
+
+}
+
+Output
+
+Java
+If empty
+Optional<String> name = Optional.empty();
+
+System.out.println(name.get());
+
+Output
+
+NoSuchElementException
+orElse()
+
+Returns the value if present; otherwise returns a default value.
+
+import java.util.Optional;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Optional<String> name = Optional.ofNullable(null);
+
+        System.out.println(name.orElse("Guest"));
+
+    }
+
+}
+
+Output
+
+Guest
+Non-null Example
+Optional<String> name = Optional.ofNullable("Java");
+
+System.out.println(name.orElse("Guest"));
+
+Output
+
+Java
+orElseThrow()
+
+Throws an exception if the Optional is empty.
+
+Optional<String> name = Optional.empty();
+
+System.out.println(
+    name.orElseThrow(() -> new RuntimeException("Value not found"))
+);
+
+Output
+
+RuntimeException: Value not found
+7. ifPresent()
+
+Executes code only if a value is present.
+
+import java.util.Optional;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Optional<String> name = Optional.of("Java");
+
+        name.ifPresent(System.out::println);
+
+    }
+
+}
+
+Output
+
+Java

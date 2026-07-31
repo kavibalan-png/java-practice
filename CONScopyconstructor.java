@@ -1,16 +1,3 @@
-Student2 {
-    String name;
-
-    Student2(String n) {
-        name = n;
-    }
-class
-    Student2(Student2 s) {
-        name = s.name;
-    }
-}
-
-
 class Student2 {
     String name;
     int age;
@@ -33,7 +20,7 @@ class Student2 {
     }
 }
 
-public class copyconstructor {
+public class CONScopyconstructor {
     public static void main(String[] args) {
 
         // Original object
@@ -46,4 +33,3 @@ public class copyconstructor {
         s2.display();
     }
 }
-

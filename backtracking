@@ -1,0 +1,412 @@
+Recursion means a function calls itself until a condition is met.
+
+Simple definition:
+
+"A function calling itself again and again until it reaches the base condition."
+
+Every recursive function has 2 parts:
+
+Base Case (Stopping condition)
+Recursive Case (Function calls itself)
+
+public class RecursionDemo {
+
+    static void print(int n) {
+
+        if (n == 0) {     // Base Case
+            return;   // stop condition            }
+
+        System.out.println(n);
+
+        print(n - 1);     
+    }
+
+    public static void main(String[] args) {
+
+        print(5);
+
+    }
+}
+Why do we use Recursion?
+
+Some problems naturally break into smaller versions of themselves.
+
+Instead of writing loops, recursion makes them easier to express.
+
+Examples:
+
+Factorial
+Fibonacci
+Binary Tree Traversal
+Graph DFS
+Merge Sort
+Quick Sort
+
+public class Factorial {
+
+    static int fact(int n) {
+
+        if (n == 1)
+            return 1;
+
+        return n * fact(n - 1);
+
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println(fact(5));
+
+    }
+}
+
+
+
+=============================================*******************==========================================
+
+
+What is Backtracking?
+
+Backtracking is an extension of recursion.
+
+Definition:
+Try one choice → If it doesn't work → Undo it → Try another choice.
+
+Backtracking Steps
+Choose
+
+↓
+
+Explore
+
+↓
+
+Wrong?
+
+↓
+
+Undo
+
+↓
+
+Choose Next
+
+Think of it as "Try, Undo, Try Again."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void solve() {
+
+    if(solutionFound){
+        printAnswer();
+        return;
+    }
+
+    for(each choice){
+
+        choose();
+
+        solve();
+
+        undoChoice();
+
+    }
+
+}
+
+The important step is undoChoice(). Without undoing, later choices would be affected by earlier ones.
+
+Why do we use Backtracking?
+
+Backtracking is useful when you need to explore all possible choices and reject the ones that don't satisfy the rules.
+
+Common problems include:
+
+N-Queens
+Sudoku Solver
+Rat in a Maze
+Generate Permutations
+Generate Combinations
+Word Search
+Subsets
+Combination Sum
+
+
+
+
+
+Problems
+Combination
+import java.util.ArrayList;
+import java.util.List;
+
+public class Combination {
+    public static void findCombination(int start, List<Integer> list) {
+        // Base Case
+        if (list.size() == 2) {
+            System.out.println(list);
+            return;
+        }
+        // Try all numbers
+        for (int i = start; i <= 3; i++) {
+            // Choose
+            list.add(i);
+            // Recursive Call
+            findCombination(i + 1, list);
+            // Backtrack
+            list.remove(list.size() - 1);
+        }
+    }
+    public static void main(String[] args) {
+        findCombination(1, new ArrayList<>());
+
+    }
+}
+
+
+
+
+
+
+Subsets
+import java.util.*;
+
+public class Subsets {
+
+    public static void findSubsets(int index,
+                                   int[] nums,
+                                   List<Integer> list,
+                                   List<List<Integer>> answer) {
+
+        // Base Case
+        if (index == nums.length) {
+
+            answer.add(new ArrayList<>(list));
+            return;
+        }
+        // Choice 1 : Include
+        list.add(nums[index]);
+        findSubsets(index + 1, nums, list, answer);
+        // Backtracking
+        list.remove(list.size() - 1);
+        // Choice 2 : Exclude
+        findSubsets(index + 1, nums, list, answer);
+    }
+
+    public static void main(String[] args) {
+
+        int nums[] = {1,2,3};
+
+        List<List<Integer>> answer = new ArrayList<>();
+
+        findSubsets(0, nums, new ArrayList<>(), answer);
+
+        System.out.println(answer);
+
+    }
+}
+
+
+
+
+
+N-queens
+
+public class NQueens {
+    static int N = 4;
+    static boolean[][] board = new boolean[N][N];
+    public static void solve(int row) {
+        if (row == N) {
+            printBoard();
+            System.out.println();
+            return;
+        }
+        for (int col = 0; col < N; col++) {
+            if (isSafe(row, col)) {
+                board[row][col] = true;      // Place Queen
+                solve(row + 1);              // Next Row
+                board[row][col] = false;     // Backtrack
+            }
+        }
+    }
+    static boolean isSafe(int row, int col) {
+        // Check same column
+        for (int i = 0; i < row; i++) {
+            if (board[i][col])
+                return false;
+        }
+        // Check left diagonal
+        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+            if (board[i][j])
+                return false;
+        }
+        // Check right diagonal
+        for (int i = row - 1, j = col + 1; i >= 0 && j < N; i--, j++) {
+            if (board[i][j])
+                return false;
+        }
+        return true;
+    }
+    static void printBoard() {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (board[i][j])
+                    System.out.print("Q ");
+                else
+                    System.out.print(". ");
+            }
+            System.out.println();
+        }
+    }
+    public static void main(String[] args) {
+        solve(0);
+
+    }
+}
+
+Sudoku Solver
+
+public class SudokuSolver {
+    public static boolean solveSudoku(int[][] board) {
+        // Find Empty Cell
+        for (int row = 0; row < 9; row++) {
+           for (int col = 0; col < 9; col++) {
+                if (board[row][col] == 0) {
+                    // Try numbers from 1 to 9
+                    for (int num = 1; num <= 9; num++) {
+                        if (isSafe(board, row, col, num)) {
+                            // Place Number
+                            board[row][col] = num;
+                            // Solve remaining board
+                            if (solveSudoku(board)) {
+                                return true;
+                            }
+                            // Backtrack
+                            board[row][col] = 0;
+                        }
+                    }
+                    // No number works
+                    return false;
+                }
+            }
+        }
+        // Sudoku Solved
+        return true;
+    }
+    public static boolean isSafe(int[][] board, int row, int col, int num) {
+        // Check Row
+        for (int i = 0; i < 9; i++) {
+
+            if (board[row][i] == num)
+                return false;
+        }
+        // Check Column
+        for (int i = 0; i < 9; i++) {
+            if (board[i][col] == num)
+                return false;
+        }
+        // Check 3x3 Box
+        int startRow = row - row % 3;
+        int startCol = col - col % 3;
+        for (int i = startRow; i < startRow + 3; i++) {
+            for (int j = startCol; j < startCol + 3; j++) {
+
+                if (board[i][j] == num)
+                    return false;
+            }
+        }
+       return true;
+    }
+    public static void printBoard(int[][] board) {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+
+                System.out.print(board[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+    public static void main(String[] args) {
+        int[][] board = {
+                {5,3,0,0,7,0,0,0,0},
+                {6,0,0,1,9,5,0,0,0},
+                {0,9,8,0,0,0,0,6,0},
+
+                {8,0,0,0,6,0,0,0,3},
+                {4,0,0,8,0,3,0,0,1},
+                {7,0,0,0,2,0,0,0,6},
+
+                {0,6,0,0,0,0,2,8,0},
+                {0,0,0,4,1,9,0,0,5},
+                {0,0,0,0,8,0,0,7,9}
+        };
+        if (solveSudoku(board)) {
+
+            System.out.println("Solved Sudoku:");
+
+            printBoard(board);
+
+        } else {
+
+            System.out.println("No Solution");
+        }
+    }
+}
+
+
+data structure is a two types
+linear data structure
+array
+linked list
+stack&queue
+deque
+Nodes conected for the edge
+a binary tree is a tree in which every node can have at most two children
+those two children are called
+lift child
+right chid
+example
+   10
+   /  \
+  2    3
+   full &complete binsry tree.
+
+   class Node {
+    int data;
+    Node left, right;
+    Node(int data) {
+        this.data = data;
+        left = right = null;
+    }
+}
+public class BinaryTree {
+    public static void main(String[] args) {
+        Node root = new Node(10);
+        root.left = new Node(5);
+        root.right = new Node(20);
+        System.out.println(root.data);
+        System.out.println(root.left.data);
+        System.out.println(root.right.data);
+    }
+}
+tree traversal depth first search
+goes as deep as posible into one branch before coming back
+it includes: 
+
+preorder,
+
+inorder,
+
+postorder.stack and queue

@@ -1,9 +1,10 @@
-public class without_object_str{
-    static String add(String a,String b){
-        return a+b;
+public class without_object {
+    static int add(int a, int b) {
+        return a + b;
     }
-    public static void main(String[]args){
-        String result=add("JANA","Deva");
+
+    public static void main(String[] args) {
+        int result = add(10, 20);
         System.out.println("Result: " + result);
     }
 }

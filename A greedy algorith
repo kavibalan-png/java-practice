@@ -1,0 +1,88 @@
+A Greedy algorithm is an algorithmic approach that makes the best possible choice at each step without considering future consequences. The idea is that these local optimal choices will lead to a globally optimal solution for certain problems.
+Greedy algorithms are used because they are:
+Simple to design and implement.
+Fast, often running in O(n) or O(nlogn) time.
+Efficient for problems that satisfy the greedy-choice property and optimal substructure.
+However, greedy algorithms do not always produce the optimal solution for every problem.
+Example: 
+Suppose you have coins of ₹10, ₹5, ₹2, and ₹1, and you need to make ₹18.
+public class CoinChange {
+    public static void main(String[] args) {
+        int[] coins = {10, 5, 2, 1};
+        int amount = 18;
+        int count = 0;
+        System.out.println("Coins used:");
+        for (int coin : coins) {
+            while (amount >= coin) {
+                System.out.print(coin + " ");
+                amount -= coin;
+                count++;
+            }
+        }
+        System.out.println("\nMinimum number of coins = " + count);
+    }
+}
+Assign coockies
+import java.util.Arrays;
+public class AssignCookies {
+    public static int findContentChildren(int[] g, int[] s) {
+        Arrays.sort(g);
+        Arrays.sort(s);
+        int child = 0, cookie = 0;
+        while (child < g.length && cookie < s.length) {
+            if (s[cookie] >= g[child]) {
+                child++;
+            }
+            cookie++;
+        }
+
+        return child;
+    }
+    public static void main(String[] args) {
+        int[] g = {1, 2, 3};
+        int[] s = {1, 1};
+        System.out.println(findContentChildren(g, s));
+    }
+}
+jump game
+
+public class JumpGame {
+    public static boolean canJump(int[] nums) {
+        int maxReach = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (i > maxReach) {
+                return false;
+            }
+            maxReach = Math.max(maxReach, i + nums[i]);
+        }
+        return true;
+    }
+    public static void main(String[] args) {
+        int[] nums = {2, 3, 1, 1, 4};
+        System.out.println(canJump(nums));
+    }
+}
+gas station
+
+public class GasStation {
+    public static int canCompleteCircuit(int[] gas, int[] cost) {
+        int total = 0;
+        int tank = 0;
+        int start = 0;
+        for (int i = 0; i < gas.length; i++) {
+            int diff = gas[i] - cost[i];
+            total += diff;
+            tank += diff;
+            if (tank < 0) {
+                start = i + 1;
+                tank = 0;
+            }
+        }
+        return (total >= 0) ? start : -1;
+    }
+    public static void main(String[] args) {
+        int[] gas = {1, 2, 3, 4, 5};
+        int[] cost = {3, 4, 5, 1, 2};
+        System.out.println(canCompleteCircuit(gas, cost));   
+ }
+}

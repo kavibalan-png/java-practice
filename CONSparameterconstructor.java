@@ -1,6 +1,3 @@
-Student1 s1 = new Student1("John");
-s1.display();
-
 class Student1 {
     String name;
     int age;
@@ -17,7 +14,7 @@ class Student1 {
     }
 }
 
-public class parameterconstructor {
+public class CONSparameterconstructor {
     public static void main(String[] args) {
 
         // values pass pannrom constructor ku
@@ -26,4 +23,3 @@ public class parameterconstructor {
         s1.display();
     }
 }
-

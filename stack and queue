@@ -1,0 +1,399 @@
+What is Stack?
+
+Definition:
+
+A Stack is a Linear Data Structure that follows the LIFO principle.
+
+LIFO = Last In First Out
+
+Why do we use Stack?
+
+Stack is used whenever we need to remember the latest data first.
+
+Examples:
+
+Undo operation (Ctrl + Z)
+Browser Back Button
+Function Calls
+Expression Evaluation
+Parentheses Matching
+DFS (Depth First Search)
+Recursion
+
+Stack Operations
+
+There are only 5 important operations.
+
+=>push()
+
+=>pop()
+
+=>peek()
+
+=>isEmpty()
+
+=>size()
+Push=>Push means Insert an element.
+Pop=>Pop means Remove Top element.
+Peek=>Peek means See Top element.Don't remove.
+isEmpty()=>Checks whether stack is empty.
+
+import java.util.Stack;
+
+public class StackExample {
+
+    public static void main(String[] args) {
+
+        Stack<Integer> stack = new Stack<>();
+
+        stack.push(10);
+        stack.push(20);
+        stack.push(30);
+
+        System.out.println(stack);
+
+        System.out.println(stack.pop());
+
+        System.out.println(stack);
+
+        System.out.println(stack.peek());
+
+        System.out.println(stack.isEmpty());
+
+        System.out.println(stack.size());
+    }
+}
+
+Output
+
+[10, 20, 30]
+
+30
+
+[10, 20]
+
+20
+
+false
+
+2
+
+Valid parentheses
+import java.util.Stack;
+
+public class ValidParentheses {
+
+    public static boolean isValid(String s) {
+
+        Stack<Character> stack = new Stack<>();
+
+        for (int i = 0; i < s.length(); i++) {
+
+            char ch = s.charAt(i);
+
+            if (ch == '(' || ch == '{' || ch == '[') {
+
+                stack.push(ch);
+
+            } else {
+
+                if (stack.isEmpty()) {
+                    return false;
+                }
+
+                char top = stack.pop();
+
+                if (ch == ')' && top != '(') {
+                    return false;
+                }
+
+                if (ch == '}' && top != '{') {
+                    return false;
+                }
+
+                if (ch == ']' && top != '[') {
+                    return false;
+                }
+            }
+        }
+
+        return stack.isEmpty();
+    }
+
+    public static void main(String[] args) {
+
+        String s = "()[]{}";
+
+        System.out.println(isValid(s));
+    }
+}
+
+
+import java.util.Stack;
+
+public class MinStack {
+
+    Stack<Integer> stack;
+    Stack<Integer> minStack;
+
+    public MinStack() {  //constructor 
+
+        stack = new Stack<>();
+        minStack = new Stack<>();
+    }
+
+    public void push(int val) {
+
+        stack.push(val);
+
+        if (minStack.isEmpty() || val <= minStack.peek()) {  3<=5  7<=3 2<=7
+            minStack.push(val); 3 5 2
+        }
+    }
+
+    public void pop() {
+
+        if (stack.peek().equals(minStack.peek())) {
+            minStack.pop();    2equals2
+        }
+
+        stack.pop();  357
+    }
+
+    public int top() {
+        return stack.peek();
+    }
+
+    public int getMin() {
+        return minStack.peek();
+    }
+
+    public static void main(String[] args) {
+
+        MinStack ms = new MinStack();
+
+        ms.push(5);
+        ms.push(3);
+        ms.push(7);
+        ms.push(2);
+
+        System.out.println(ms.getMin());
+
+        ms.pop();
+
+        System.out.println(ms.getMin());
+
+        ms.pop();
+
+        System.out.println(ms.getMin());
+    }
+}
+
+
+Baseball game 
+
+Queue
+
+Queue is  a FIFO (First In, First Out)
+
+First In → First element inserted.
+First Out → First element removed.
+Queue Operations
+
+There are four important operations.
+
+1. Enqueue (Add)
+
+Adds an element at the rear (back).
+Dequeue (Remove)
+
+2.Dequeue Removes the element from the front.
+
+Queue:
+
+10 20 30
+
+Remove
+
+20 30
+
+10 is removed because it came first.
+
+3.Peek
+
+Returns the first element without removing it.
+4.isEmpty()
+
+Checks whether the queue has elements.
+
+program
+import java.util.Queue;
+import java.util.LinkedList;
+
+public class QueueExample {
+
+    public static void main(String[] args) {
+
+        Queue<Integer> queue = new LinkedList<>();
+
+        queue.offer(10);
+        queue.offer(20);
+        queue.offer(30);
+
+        System.out.println(queue);
+
+        System.out.println(queue.poll());
+
+        System.out.println(queue);
+
+        System.out.println(queue.peek());
+
+        System.out.println(queue);
+    }
+}
+problems
+import java.util.Stack;
+
+public class MyQueue {
+
+    Stack<Integer> inputStack;
+    Stack<Integer> outputStack;
+
+    public MyQueue() {
+        inputStack = new Stack<>();
+        outputStack = new Stack<>();
+    }
+
+    // Enqueue
+    public void push(int x) {
+        inputStack.push(x);
+    }
+
+    // Dequeue
+    public int pop() {
+
+        if (outputStack.isEmpty()) {  check this empty 
+
+            while (!inputStack.isEmpty()) {   no 
+
+                outputStack.push(inputStack.pop());remove the forst 30 add out putstacj 30 outpustack 30 ,20,10
+            }
+        }
+
+        return outputStack.pop(); 10,20,30
+    }
+
+    // Front element
+    public int peek() {
+
+        if (outputStack.isEmpty()) {
+
+            while (!inputStack.isEmpty()) {
+
+                outputStack.push(inputStack.pop());
+            }
+        }
+
+        return outputStack.peek();
+    }
+
+    // Is Queue Empty?
+    public boolean empty() {
+
+        return inputStack.isEmpty() && outputStack.isEmpty();
+    }
+
+    public static void main(String[] args) {
+
+        MyQueue queue = new MyQueue();
+
+        queue.push(10);
+        queue.push(20);
+        queue.push(30);
+
+        System.out.println(queue.pop());   //10
+
+        System.out.println(queue.peek());  //20
+
+        System.out.println(queue.pop());   //20
+
+        System.out.println(queue.empty()); //false
+    }
+}
+
+
+Number of Recent calls
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class RecentCounter {
+
+    Queue<Integer> queue;
+
+    public RecentCounter() {
+        queue = new LinkedList<>();
+    }
+
+    public int ping(int t) {
+
+        queue.offer(t);
+
+        while (queue.peek() < t - 3000) {
+            queue.poll();
+        }
+
+        return queue.size();
+    }
+
+    public static void main(String[] args) {
+
+        RecentCounter rc = new RecentCounter();
+
+        System.out.println(rc.ping(1));
+        System.out.println(rc.ping(100));
+        System.out.println(rc.ping(3001));
+        System.out.println(rc.ping(3002));
+    }
+}
+
+
+
+Moving average
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class MovingAverage {
+
+    private Queue<Integer> queue;
+    private int size;
+    private double sum;
+
+    public MovingAverage(int size) {
+        this.size = size;
+        queue = new LinkedList<>();
+        sum = 0;
+    }
+
+    public double next(int val) {
+
+        if (queue.size() == size) {
+            sum = sum - queue.poll();
+        }
+
+        queue.offer(val);
+        sum = sum + val;
+
+        return sum / queue.size();
+    }
+
+    public static void main(String[] args) {
+
+        MovingAverage m = new MovingAverage(3);
+
+        System.out.println(m.next(1));   //1.0
+        System.out.println(m.next(10));  //5.5
+        System.out.println(m.next(3));   //4.6667
+        System.out.println(m.next(5));   //6.0
+    }
+}

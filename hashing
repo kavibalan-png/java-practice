@@ -1,0 +1,798 @@
+What is Hashing in DSA?
+
+Hashing is a technique used to store and find data very quickly.
+
+Instead of searching through every element one by one, hashing uses a Hash Function to calculate where the data should be stored.
+
+Simple Definition
+
+Hashing = Converting a key into an index (address) using a hash function.
+
+For example:
+
+Key = 25
+
+Hash Function:
+index = key % 10
+
+25 % 10 = 5
+
+Store 25 at index 5
+Index : 0 1 2 3 4 5 6 7 8 9
+Value : - - - - -25- - - -
+
+Later, if you want to find 25:
+
+25 % 10 = 5
+
+Go directly to index 5
+Found!
+
+No need to search the whole array.
+
+Why is Hashing Used?
+
+Imagine you have 1,000,000 student records.
+
+Without hashing:
+
+Search Student ID = 987654
+
+Check
+Student 1
+Student 2
+Student 3
+...
+Student 987654
+
+This is slow.
+
+With hashing:
+
+Student ID = 987654
+
+Hash Function
+
+↓
+
+Index = 654
+
+Go directly to index 654
+
+Found
+
+This is much faster.
+
+Real-Life Example
+
+Suppose a classroom has lockers.
+
+Without locker numbers:
+
+You search every locker.
+
+Locker 1 ❌
+Locker 2 ❌
+Locker 3 ❌
+...
+Locker 50 ✅
+
+Time is wasted.
+
+With locker numbers:
+
+Locker Number = 50
+
+Go directly to Locker 50
+
+Open it
+
+Done
+
+Hashing works in the same way.
+
+Components of Hashing
+1. Key
+
+The value you want to store.
+
+Example:
+
+Roll No = 101
+2. Hash Function
+
+It converts the key into an index.
+
+Example:
+
+index = key % 10
+
+If
+
+key = 101
+
+101 % 10 = 1
+
+Store it at index 1.
+
+3. Hash Table
+
+A hash table is simply an array where data is stored.
+
+Index : 0 1 2 3 4 5 6 7 8 9
+
+Value : -101- - - - - - -
+
+
+import java.util.HashMap;
+
+public class HashTableExample {
+
+    public static void main(String[] args) {
+
+        // Creating Hash Table
+        HashMap<Integer, String> map = new HashMap<>();
+
+
+        // 1. INSERT OPERATION (put)
+        map.put(101, "Arun");
+        map.put(102, "Priya");
+        map.put(103, "Kumar");
+
+        System.out.println("After Insert:");
+        System.out.println(map);
+
+
+        // 2. SEARCH OPERATION (get)
+        String name = map.get(102);
+
+        System.out.println("\nSearch Result:");
+        System.out.println(name);
+
+
+        // 3. UPDATE OPERATION
+        map.put(102, "Priyanka");
+
+        System.out.println("\nAfter Update:");
+        System.out.println(map);
+
+
+        // 4. DELETE OPERATION (remove)
+        map.remove(103);
+
+        System.out.println("\nAfter Delete:");
+        System.out.println(map);
+
+
+        // 5. CHECK KEY EXISTS
+        if(map.containsKey(101)) {
+            System.out.println("\nKey 101 exists");
+        }
+
+
+        // 6. DISPLAY ALL KEYS
+        System.out.println("\nAll Keys:");
+
+        for(Integer key : map.keySet()) {
+            System.out.println(key);
+        }
+
+
+        // 7. DISPLAY ALL VALUES
+        System.out.println("\nAll Values:");
+
+        for(String value : map.values()) {
+            System.out.println(value);
+        }
+    }
+}
+
+
+
+
+Two sum
+
+import java.util.HashMap;
+
+public class TwoSum {
+
+    public static int[] twoSum(int[] nums, int target) {
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for(int i = 0; i < nums.length; i++) {
+
+            int current = nums[i];
+
+            int need = target - current;
+
+
+            // Check required number exists
+            if(map.containsKey(need)) {
+
+                return new int[]{
+                    map.get(need),
+                    i
+                };
+            }
+
+
+            // Store current number
+            map.put(current, i);
+        }
+
+        return new int[]{};
+    }
+
+
+    public static void main(String[] args) {
+
+        int nums[] = {2,7,11,15};
+
+        int target = 9;
+
+
+        int result[] = twoSum(nums,target);
+
+
+        System.out.println(result[0] + " " + result[1]);
+    }
+}
+
+contains duplicate
+
+import java.util.HashSet;
+
+public class ContainsDuplicate {
+
+    public static boolean containsDuplicate(int[] nums) {
+
+        HashSet<Integer> set = new HashSet<>();
+
+        for(int i = 0; i < nums.length; i++) {
+
+            // Check duplicate
+            if(set.contains(nums[i])) {
+                return true;
+            }
+
+            // Store number
+            set.add(nums[i]);
+        }
+
+        return false;
+    }
+
+
+    public static void main(String[] args) {
+
+        int nums[] = {1,2,3,1};
+
+        System.out.println(containsDuplicate(nums));
+    }
+}
+
+
+happy number
+
+import java.util.HashSet;
+
+public class HappyNumber {
+
+    public static boolean isHappy(int n) {
+
+        HashSet<Integer> set = new HashSet<>();
+
+        while(n != 1) {
+
+            // Cycle check
+            if(set.contains(n)) {
+                return false;
+            }
+
+            // Store visited number
+            set.add(n);
+
+            n = getSum(n);
+        }
+
+        return true;
+    }
+
+
+    public static int getSum(int n) {
+
+        int sum = 0;
+
+        while(n > 0) {
+
+            int digit = n % 10;
+
+            sum = sum + digit * digit;
+
+            n = n / 10;
+        }
+
+        return sum;
+    }
+
+
+    public static void main(String[] args) {
+
+        int n = 19;
+
+        System.out.println(isHappy(n));
+    }
+}
+
+
+Heap
+
+Heap is a special type of Binary Tree data structure.
+
+It is a complete binary tree where every parent node follows a special rule.
+
+
+Minimum value quickly 
+Maximum value quickly 
+
+
+Types of Heap
+1. Max Heap
+
+Rule:
+
+Parent value is greater than children.
+
+Example:
+
+          100
+        /     \
+      50       70
+     /
+   20
+
+Check:
+
+100 > 50
+100 > 70
+50 > 20
+
+Correct.
+
+2. Min Heap
+
+Rule:
+
+Parent value is smaller than children.
+
+Example:
+
+          10
+        /    \
+      20      30
+     /
+   40
+
+Check:
+
+10 < 20
+10 < 30
+20 < 40
+
+Correct.
+
+
+Max Heap Operations
+
+Operations:
+
+Insert → Heapify Up
+Delete Root → Heapify Down
+Get Maximum → Peek
+create a heap
+public class MaxHeap {
+
+    int[] heap;
+    int size;
+    int capacity;
+
+
+    // Create Heap
+    MaxHeap(int capacity) {
+
+        this.capacity = capacity;
+
+        heap = new int[capacity];
+
+        size = 0;
+    }
+}
+
+
+
+insert code
+public void insert(int value){
+
+    // Add at end
+    heap[size] = value;
+
+    int index = size;
+
+    size++;
+
+
+    // Heapify Up
+    while(index > 0){
+
+        int parent = (index-1)/2;
+
+
+        if(heap[parent] < heap[index]){
+
+            int temp = heap[parent];
+
+            heap[parent] = heap[index];
+
+            heap[index] = temp;
+
+
+            index = parent;
+
+        }
+        else{
+            break;
+        }
+    }
+}
+
+Delete code
+public int delete(){
+
+    int max = heap[0];
+
+    heap[0] = heap[size-1];
+
+    size--;
+
+    heapifyDown(0);
+
+    return max;
+}
+
+Get Maximum Code
+public int getMax() {
+
+    if(size == 0) {
+        System.out.println("Heap is Empty");
+        return -1;
+    }
+
+    return heap[0];
+}
+
+HeapifyDown Code
+private void heapifyDown(int index){
+
+    while(index < size){
+
+        int largest = index;
+
+
+        int left = 2*index+1;
+
+        int right = 2*index+2;
+
+
+        if(left < size && heap[left] > heap[largest]){
+            largest = left;
+        }
+
+
+        if(right < size && heap[right] > heap[largest]){
+            largest = right;
+        }
+
+
+        if(largest == index){
+            break;
+        }
+
+
+        int temp = heap[index];
+
+        heap[index] = heap[largest];
+
+        heap[largest] = temp;
+
+
+        index = largest;
+    }
+}
+
+
+problem
+public class MaxHeap {
+
+    private int[] heap;
+    private int size;
+    private int capacity;
+
+
+    // Constructor
+    public MaxHeap(int capacity) {
+
+        this.capacity = capacity;
+        heap = new int[capacity];
+        size = 0;
+    }
+
+
+    // 1. INSERT OPERATION
+    public void insert(int value) {
+
+        if(size == capacity) {
+            System.out.println("Heap is Full");
+            return;
+        }
+
+
+        // Step 1: Add element at last position
+        heap[size] = value;
+
+        int index = size;
+
+        size++;
+
+
+        // Step 2: Heapify Up
+        while(index > 0) {
+
+            int parent = (index - 1) / 2;
+
+
+            // Parent is smaller than child
+            if(heap[parent] < heap[index]) {
+
+                // Swap
+                int temp = heap[parent];
+                heap[parent] = heap[index];
+                heap[index] = temp;
+
+
+                index = parent;
+
+            }
+            else {
+                break;
+            }
+        }
+    }
+
+
+
+    // 2. DELETE ROOT OPERATION
+    public int delete() {
+
+        if(size == 0) {
+            return -1;
+        }
+
+
+        // Store maximum value
+        int max = heap[0];
+
+
+        // Move last element to root
+        heap[0] = heap[size - 1];
+
+
+        size--;
+
+
+        // Heapify Down
+        heapifyDown(0);
+
+
+        return max;
+    }
+
+
+
+    // Heapify Down
+    private void heapifyDown(int index) {
+
+
+        while(index < size) {
+
+
+            int largest = index;
+
+
+            int left = 2 * index + 1;
+
+            int right = 2 * index + 2;
+
+
+
+            // Check left child
+            if(left < size && heap[left] > heap[largest]) {
+
+                largest = left;
+            }
+
+
+            // Check right child
+            if(right < size && heap[right] > heap[largest]) {
+
+                largest = right;
+            }
+
+
+
+            // No change needed
+            if(largest == index) {
+                break;
+            }
+
+
+            // Swap
+            int temp = heap[index];
+            heap[index] = heap[largest];
+            heap[largest] = temp;
+
+
+            index = largest;
+
+        }
+
+    }
+
+
+
+    // 3. GET MAXIMUM
+    public int peek() {
+
+        if(size == 0) {
+            return -1;
+        }
+
+        return heap[0];
+    }
+
+
+
+    // Display Heap
+    public void display() {
+
+        for(int i=0; i<size; i++) {
+
+            System.out.print(heap[i] + " ");
+        }
+
+        System.out.println();
+    }
+
+
+
+    public static void main(String[] args) {
+
+
+        MaxHeap heap = new MaxHeap(10);
+
+
+
+        // Insert
+        heap.insert(50);
+        heap.insert(30);
+        heap.insert(70);
+        heap.insert(10);
+        heap.insert(90);
+
+
+        System.out.println("After Insert:");
+        heap.display();
+
+
+
+        // Get Maximum
+        System.out.println("Maximum value: " + heap.peek());
+
+
+
+        // Delete Root
+        System.out.println("Deleted: " + heap.delete());
+
+
+        System.out.println("After Delete:");
+        heap.display();
+
+    }
+}
+
+
+
+
+import java.util.PriorityQueue;
+
+public class KthLargest {
+
+    public static int findKthLargest(int[] nums, int k) {
+
+        // Min Heap
+        PriorityQueue<Integer> heap = new PriorityQueue<>();
+
+        for (int num : nums) {
+
+            heap.offer(num);
+
+            if (heap.size() > k) {
+                heap.poll();
+            }
+        }
+
+        return heap.peek();
+    }
+
+    public static void main(String[] args) {
+
+        int[] nums = {3,2,1,5,6,4};
+
+        int k = 2;
+
+        System.out.println(findKthLargest(nums, k));
+    }
+}
+
+
+stone
+
+import java.util.PriorityQueue;
+
+public class LastStoneWeight {
+
+    public static int lastStoneWeight(int[] stones) {
+
+        // Max Heap
+        PriorityQueue<Integer> maxHeap =
+                new PriorityQueue<>((a, b) -> b - a);
+
+        // Add all stones into heap
+        for (int stone : stones) {
+            maxHeap.offer(stone);
+        }
+
+        // Keep smashing until only one or no stone remains
+        while (maxHeap.size() > 1) {
+
+            int first = maxHeap.poll();   // Largest stone
+            int second = maxHeap.poll();  // Second largest stone
+
+            if (first != second) {
+                maxHeap.offer(first - second);
+            }
+        }
+
+        return maxHeap.isEmpty() ? 0 : maxHeap.peek();
+    }
+
+    public static void main(String[] args) {
+
+        int[] stones = {2, 7, 4, 1, 8, 1};
+
+        System.out.println(lastStoneWeight(stones));
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

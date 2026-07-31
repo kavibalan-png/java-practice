@@ -1,0 +1,528 @@
+What is a Graph?
+
+A Graph is a data structure used to represent relationships (connections) between objects.
+
+A graph has two parts:
+
+Vertex (Node) → Represents an object.
+Edge → Represents a connection between two objects.
+
+For example:
+
+A ----- B
+|       |
+|       |
+C ----- D
+
+Here,
+
+Vertices (Nodes): A, B, C, D
+Edges: A-B, A-C, B-D, C-D
+
+Think of it as:
+
+Node = Person
+Edge = Friendship
+
+If Ram and Ravi are friends,
+
+Ram -------- Ravi
+
+The line represents the relationship.
+
+Why do we use Graphs?
+
+Many real-world problems involve connections.
+
+For example:
+
+1. Google Maps
+Chennai -------- Bangalore
+     \
+      \
+      Hyderabad
+Cities = Nodes
+Roads = Edges
+
+Graph algorithms find the shortest route.
+
+2. Facebook
+      Alice
+      /   \
+   Bob     John
+      \
+      David
+
+People = Nodes
+
+Friendship = Edge
+
+Graph helps suggest mutual friends.
+
+3. Instagram
+You ---> Friend
+ |
+ |
+ ---> Celebrity
+
+Followers and following relationships form a graph.
+
+4. Computer Networks
+Computer A ----- Router ----- Computer B
+
+Each device is a node.
+
+Connections are edges.
+
+5. Flight Routes
+Delhi ----- Chennai
+   |
+Mumbai ----- Bangalore
+
+Airports = Nodes
+
+Flights = Edges
+
+Why can't we use Arrays or Linked Lists?
+
+Suppose four people are friends.
+
+Ram
+Ravi
+John
+David
+
+Using an array:
+
+[Ram, Ravi, John, David]
+
+This only stores names.
+
+It doesn't tell us:
+
+Who is friends with whom?
+How are they connected?
+
+Graphs are designed to store these relationships.
+
+Components of a Graph
+1. Vertex (Node)
+A
+
+Represents one object.
+
+Examples:
+
+Person
+City
+Computer
+Airport
+2. Edge
+A -------- B
+
+Shows a connection.
+
+Examples:
+
+Friendship
+Road
+Flight
+Internet cable
+Types of Graphs
+1. Undirected Graph
+A ------- B
+
+Both directions are allowed.
+
+Example:
+
+Friendship
+
+If A is a friend of B, then B is also a friend of A.
+
+2. Directed Graph (Digraph)
+A -------> B
+
+Only one direction.
+
+Example:
+
+Instagram Follow
+
+A follows B
+
+B may not follow A.
+
+3. Weighted Graph
+
+Each edge has a cost or distance.
+
+A ----10km---- B
+ \
+ 5km
+  \
+   C
+
+Example:
+
+Google Maps uses weighted graphs.
+
+4. Unweighted Graph
+
+All edges have equal weight.
+
+A ---- B
+|
+|
+C
+
+No distances or costs.
+
+Real-Life Example
+
+Imagine five friends.
+
+      Ram
+     /   \
+ Ravi     John
+   \      /
+    David
+      |
+    Kumar
+
+Questions we can answer:
+
+Is Ram connected to Kumar?
+What's the shortest path from Ram to Kumar?
+Who has the most friends?
+Are all friends connected?
+
+These are graph problems.
+
+
+
+
+
+
+thre are two methods
+Adjacency Matrix
+Adjacency List ✅ (Most Common)
+
+xample Graph
+
+Suppose graph
+
+      0
+     / \
+    1   2
+    |   |
+    3---4
+
+Connections:
+
+0 → 1
+0 → 2
+1 → 3
+2 → 4
+3 → 4
+
+Adjacency List Concept
+
+0 -> [1,2]
+
+1 -> [0,3]
+
+2 -> [0,4]
+
+3 -> [1,4]
+
+4 -> [2,3]
+
+graph
+import java.util.*;
+
+public class GraphDemo {
+
+    public static void main(String[] args) {
+
+        int vertices = 5;
+
+        List<List<Integer>> graph = new ArrayList<>();
+
+        // Empty list create for every vertex
+        for(int i = 0; i < vertices; i++) {
+            graph.add(new ArrayList<>());
+        }
+
+        // Add Edges
+        graph.get(0).add(1);
+        graph.get(1).add(0);
+
+        graph.get(0).add(2);
+        graph.get(2).add(0);
+
+        graph.get(1).add(3);
+        graph.get(3).add(1);
+
+        graph.get(2).add(4);
+        graph.get(4).add(2);
+
+        graph.get(3).add(4);
+        graph.get(4).add(3);
+
+        System.out.println(graph);
+    }
+}
+
+
+
+Graph Traversal means visiting every node (vertex) in a graph exactly once.
+
+Think of it like visiting every room in a building.
+
+Example Graph:
+
+      0
+     / \
+    1   2
+   / \
+  3   4
+
+Question:
+
+
+
+import java.util.*;
+
+public class DirectedGraph {
+
+    public static void main(String[] args) {
+
+        int vertices = 4;
+
+        List<List<Integer>> graph = new ArrayList<>();
+
+        for(int i = 0; i < vertices; i++) {
+            graph.add(new ArrayList<>());
+        }
+
+        addEdge(graph, 0, 1);
+        addEdge(graph, 0, 2);
+        addEdge(graph, 1, 3);
+
+        System.out.println(graph);
+    }
+
+    static void addEdge(List<List<Integer>> graph, int u, int v) {
+
+        graph.get(u).add(v);   // One direction only
+    }
+}
+
+How can we visit all the nodes?
+
+There are two ways:
+
+BFS (Breadth First Search) – Uses a Queue
+DFS (Depth First Search) – Uses a Stack or Recursion
+1. Breadth First Search (BFS)
+Idea
+
+Visit nodes level by level.
+
+Example:
+
+      0
+     / \
+    1   2
+   / \
+  3   4
+
+Start from node 0.
+
+
+
+import java.util.*;
+
+public class BFSGraph {
+    public static void bfs(List<List<Integer>> graph, int start) {
+        Queue<Integer> queue = new LinkedList<>();
+        boolean[] visited = new boolean[graph.size()];
+        queue.offer(start);
+        visited[start] = true;
+        while (!queue.isEmpty()) {
+            int node = queue.oll();
+            System.out.print(node + " ");
+            for (int neighbor : graph.get(node)) {
+                if (!visited[neighbor]) {
+                    visited[neighbor] = true;
+                    queue.offer(neighbor);
+                }
+            }
+        }
+    }
+    public static void main(String[] args) {
+        int vertices = 5;
+        List<List<Integer>> graph = new ArrayList<>();
+        for (int i = 0; i < vertices; i++) {
+            graph.add(new ArrayList<>());
+        }
+        graph.get(0).add(1);
+        graph.get(1).add(0);
+
+        graph.get(0).add(2);
+        graph.get(2).add(0);
+
+        graph.get(1).add(3);
+        graph.get(3).add(1);
+
+        graph.get(1).add(4);
+        graph.get(4).add(1);
+
+        bfs(graph, 0);
+    }
+}
+
+
+Depth First Search (DFS)
+Idea
+
+Visit one path as deep as possible, then come back.
+
+Example:
+
+      0
+     / \
+    1   2
+   / \
+  3   4
+
+Start at 0.
+
+
+import java.util.*;
+public class DFSGraph {
+    public static void dfs(List<List<Integer>> graph,
+                           int node,
+                           boolean[] visited) {
+        visited[node] = true;
+        System.out.print(node + " ");
+        for (int neighbor : graph.get(node)) {
+            if (!visited[neighbor]) {
+                dfs(graph, neighbor, visited);
+            }
+        }
+    }
+    public static void main(String[] args) {
+        int vertices = 5;
+        List<List<Integer>> graph = new ArrayList<>();
+        for (int i = 0; i < vertices; i++) {
+            graph.add(new ArrayList<>());
+        }
+        graph.get(0).add(1);
+        graph.get(1).add(0);
+        graph.get(0).add(2);
+        graph.get(2).add(0);
+        graph.get(1).add(3);
+        graph.get(3).add(1);
+        graph.get(1).add(4);
+        graph.get(4).add(1);
+        boolean[] visited = new boolean[vertices];
+        dfs(graph, 0, visited);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+problem
+import java.util.*;
+
+public class PathExists {
+
+    public static boolean dfs(List<List<Integer>> graph,
+                              int current,
+                              int destination,
+                              boolean[] visited) {
+
+        // Destination reached
+        if (current == destination) {
+            return true;
+        }
+
+        // Mark current node visited
+        visited[current] = true;
+
+
+        // Check all neighbors
+        for (int neighbor : graph.get(current)) {
+
+            if (!visited[neighbor]) {
+
+                if (dfs(graph, neighbor, destination, visited)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+
+    public static boolean validPath(int n,
+                                   int[][] edges,
+                                   int source,
+                                   int destination) {
+
+
+        // Create graph
+        List<List<Integer>> graph = new ArrayList<>();
+
+        for(int i = 0; i < n; i++) {
+            graph.add(new ArrayList<>());
+        }
+
+
+        // Add edges
+        for(int[] edge : edges) {
+
+            int a = edge[0];
+            int b = edge[1];
+
+            graph.get(a).add(b);
+            graph.get(b).add(a);
+        }
+
+
+        boolean[] visited = new boolean[n];
+
+
+        return dfs(graph, source, destination, visited);
+    }
+
+
+    public static void main(String[] args) {
+
+        int n = 6;
+
+        int[][] edges = {
+                {0,1},
+                {0,2},
+                {1,3},
+                {4,5}
+        };
+
+
+        System.out.println(
+            validPath(n, edges, 0, 3)
+        );
+    }
+}

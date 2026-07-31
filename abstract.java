@@ -1,4 +1,7 @@
-// Abstract Class
+// This file contains abstract class examples.
+// Note: 'abstract' is a Java keyword, so the public class is in BankSystem.java
+// See BankSystem.java for the runnable version of this code.
+
 abstract class Bank {
 
     // Abstract Method
@@ -10,35 +13,14 @@ abstract class Bank {
     }
 }
 
-// Child Class SBI
 class SBI extends Bank {
-
     void getInterestRate() {
         System.out.println("SBI Interest Rate: 6.5%");
     }
 }
 
-// Child Class ICICI
 class ICICI extends Bank {
-
     void getInterestRate() {
         System.out.println("ICICI Interest Rate: 7%");
-    }
-}
-
-// Main Class
-public class BankSystem {
-
-    public static void main(String[] args) {
-
-        SBI sbi = new SBI();
-        sbi.bankInfo();
-        sbi.getInterestRate();
-
-        System.out.println();
-
-        ICICI icici = new ICICI();
-        icici.bankInfo();
-        icici.getInterestRate();
     }
 }
